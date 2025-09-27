@@ -23,6 +23,27 @@
     <ClCompile Include="TreekoEngine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SwapChain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderTargetView.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeviceContext.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Device.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthStencilView.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TreekoEngine.fx">
@@ -40,6 +61,24 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="include\Prerequisites.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderTargetView.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceContext.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DepthStencilView.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Device.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SwapChain.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
