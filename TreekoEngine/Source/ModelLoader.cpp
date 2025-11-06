@@ -1,5 +1,9 @@
 #include "ModelLoader.h"
 #include <fstream>
+#include <sstream>      // Para std::stringstream
+#include <string>       // Para std::string
+#include <vector>       // Para std::vector
+#include <map>          // Para std::map
 
 bool
 ModelLoader::loadModel(const std::string& fileName, MeshComponent& outMesh) {
@@ -65,6 +69,7 @@ ModelLoader::loadModel(const std::string& fileName, MeshComponent& outMesh) {
 					SimpleVertex newVertex;
 					newVertex.Pos = tempVertexes[posIdx];
 					newVertex.Tex = tempUvs[txtIdx];
+					newVertex.Norm = tempNormals[nrmIdx];
 					//newVertex.Norm = tempNormals[nrm_idx];
 
 					outMesh.m_vertex.push_back(newVertex);

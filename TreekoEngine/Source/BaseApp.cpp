@@ -6,7 +6,7 @@ BaseApp::BaseApp(HINSTANCE hInst, int nCmdShow) {
 
 int
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
-  if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
+  if (FAILED(m_window.init(hInst, nCmdShow, wndProc))) {
     return 0;
   }
   if (FAILED(init()))
@@ -114,15 +114,25 @@ BaseApp::init() {
   D3D11_INPUT_ELEMENT_DESC texcoord;
   texcoord.SemanticName = "TEXCOORD";
   texcoord.SemanticIndex = 0;
-  texcoord.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+  texcoord.Format = DXGI_FORMAT_R32G32_FLOAT;
   texcoord.InputSlot = 0;
   texcoord.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
   texcoord.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
   texcoord.InstanceDataStepRate = 0;
   layout.push_back(texcoord);
 
+  D3D11_INPUT_ELEMENT_DESC normal;
+  normal.SemanticName = "NORMAL";
+  normal.SemanticIndex = 0;
+  normal.Format = DXGI_FORMAT_R32G32B32_FLOAT; // Las normales SÍ son XMFLOAT3
+  normal.InputSlot = 0;
+  normal.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+  normal.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+  normal.InstanceDataStepRate = 0;
+  layout.push_back(normal);
+
   // Create the Shader Program
-  hr = m_shaderProgram.init(m_device, "Onkos.fx", layout);
+  hr = m_shaderProgram.init(m_device, "TreekoEngine.fx", layout);
   if (FAILED(hr)) {
     ERROR("Main", "InitDevice",
       ("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
@@ -133,9 +143,9 @@ BaseApp::init() {
   //
 
 
-  bool loadSuccess = m_modelLoader.loadModel("test.obj", m_mesh);
+  bool ModelL = m_modelLoader.loadModel("calavera.obj", m_mesh);
 
-  if (!loadSuccess)
+  if (!ModelL)
   {
     ERROR("BaseApp.cpp", "init", "Failed to load model .obj");
     return E_FAIL;
@@ -317,7 +327,7 @@ BaseApp::destroy() {
 }
 
 LRESULT
-BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+BaseApp::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
   switch (message)
   {
   case WM_CREATE:
@@ -338,25 +348,4 @@ BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     return 0;
   }
   return DefWindowProc(hWnd, message, wParam, lParam);
-  /*
-  PAINTSTRUCT ps;
-  HDC hdc;
-
-  switch (message)
-  {
-  case WM_PAINT:
-    hdc = BeginPaint(hWnd, &ps);
-    EndPaint(hWnd, &ps);
-    break;
-
-  case WM_DESTROY:
-    PostQuitMessage(0);
-    break;
-
-  default:
-    return DefWindowProc(hWnd, message, wParam, lParam);
-  }
-
-  return 0;
-  */
 }

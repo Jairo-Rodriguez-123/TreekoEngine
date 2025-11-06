@@ -64,6 +64,9 @@ struct SimpleVertex
     *  @brief 2D texture coordinates of the vertex
   */
   XMFLOAT2 Tex;
+
+  XMFLOAT3 Norm;
+
 };
 
 /*

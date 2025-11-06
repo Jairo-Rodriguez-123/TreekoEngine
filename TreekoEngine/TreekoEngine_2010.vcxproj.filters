@@ -122,11 +122,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Resource.h">
-      <Filter>Include</Filter>
-    </ClInclude>
     <ClInclude Include="include\ModelLoader.h">
       <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
