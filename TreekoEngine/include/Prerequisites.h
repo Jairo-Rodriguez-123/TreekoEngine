@@ -120,3 +120,13 @@ enum ExtensionType {
   */
   JPG = 2
 };
+enum ShaderType {
+  /*
+    *  @brief Vertex shader type
+  */
+  VERTEX_SHADER = 0,
+  /*
+    *  @brief Pixel shader type
+  */
+  PIXEL_SHADER = 1
+};
