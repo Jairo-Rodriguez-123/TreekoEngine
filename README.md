@@ -17,15 +17,15 @@ Esta fase configura todos los objetos de la API necesarios antes de que comience
 A. El Entorno (Núcleo de la API)
 Window: Encapsula la creación y gestión de la ventana del sistema operativo donde se mostrará la información renderizada.
 
-Device: Actúa como la "fábrica" de recursos de la GPU. Se usa para crear texturas, buffers, shaders, etc.
+Device: Actúa de creacion de recursos de la GPU. Se usa para crear texturas, buffers, shaders, etc.
 
-Device Context: Su responsabilidad es enviar comandos directos a la GPU, como configuraciones del pipeline o comandos de dibujo.
+Device Context: lo que hace es enviar comandos directos a la GPU, como configuraciones del pipeline o comandos de dibujo.
 
 Swap Chain: Gestiona los búferes de imagen y utiliza la función Present() para dibujarlos en la pantalla.
 
 Front Buffer: Almacena la información ya procesada por los shaders, lista para leerse y dibujarse.
 
-Back Buffer: Es el destino de todos los comandos de dibujo del Device Context.
+Back Buffer: Es a donde llegan todos los comandos de dibujo del Device Context.
 
 B. Lienzos de Renderizado
 Texture: Crea los recursos base que se utilizarán para el Back Buffer y el Depth Buffer.
