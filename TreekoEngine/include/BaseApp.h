@@ -14,42 +14,33 @@
 #include "SamplerState.h"
 #include "ModelLoader.h"
 
-/**
- * @class BaseApp
- * @brief The core application class that initializes and runs the engine.
- * @author Ricardo Rabell
- * @date 2025-10-29
- *
- * BaseApp is responsible for owning and managing the lifecycle of all primary
- * graphics objects (Device, DeviceContext, SwapChain, etc.), handling the
- * main message loop, and orchestrating the per-frame update and render calls.
- * It serves as the central hub for the entire application.
+/*
+ *  @brief Main application class for managing window, device, rendering, and resources.
  */
 class
 	BaseApp {
 public:
-	/**
-	 * @brief Constructor.
-	 * @param hInst Handle to the application instance.
-	 * @param nCmdShow Command show parameter for the main window.
-	 */
+	/*
+  *  @brief Constructor.
+  *         Initializes the application with the given instance handle and command show parameter.
+  *  @param hInst Handle to the application instance.
+  *  @param nCmdShow Command show parameter for the main window.
+  */
 	BaseApp(HINSTANCE hInst, int nCmdShow);
 
-	/**
-	 * @brief Destructor.
-	 * Automatically calls the destroy() method to ensure proper cleanup.
-	 */
+	/*
+  *  @brief Destructor.
+  *         Automatically calls the destroy() method to ensure proper cleanup.
+  */
 	~BaseApp() { destroy(); }
 
-	/**
-	 * @brief The main entry point and message loop of the application.
-	 * This function initializes the application (via init()) and then enters
-	 * the Win32 message loop, processing OS messages and triggering
-	 * update() and render() calls each frame.
-	 * @param hInst Handle to the application instance.
-	 * @param nCmdShow Command show parameter for the main window.
-	 * @return int The exit code of the application.
-	 */
+	/*
+  *  @brief The main entry point and message loop of the application.
+  *         Initializes the application and enters the Win32 message loop.
+  *  @param hInst Handle to the application instance.
+  *  @param nCmdShow Command show parameter for the main window.
+  *  @return int The exit code of the application.
+  */
 	int
 		run(HINSTANCE hInst, int nCmdShow);
 

@@ -124,7 +124,7 @@ BaseApp::init() {
   D3D11_INPUT_ELEMENT_DESC normal;
   normal.SemanticName = "NORMAL";
   normal.SemanticIndex = 0;
-  normal.Format = DXGI_FORMAT_R32G32B32_FLOAT; // Las normales SÍ son XMFLOAT3
+  normal.Format = DXGI_FORMAT_R32G32B32_FLOAT; 
   normal.InputSlot = 0;
   normal.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
   normal.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -140,14 +140,11 @@ BaseApp::init() {
   }
 
 
-  //
-
-
   bool ModelL = m_modelLoader.loadModel("calavera.obj", m_mesh);
 
   if (!ModelL)
   {
-    ERROR("BaseApp.cpp", "init", "Failed to load model .obj");
+    ERROR("BaseApp.cpp", "init", "Failed to load model calavera.obj");
     return E_FAIL;
   }
 
@@ -194,7 +191,7 @@ BaseApp::init() {
     return hr;
   }
 
-  hr = m_textureCube.init(m_device, "seafloor", ExtensionType::DDS);
+  hr = m_textureCube.init(m_device, "Skull", ExtensionType::DDS);
 
   // Load the Texture
   if (FAILED(hr)) {
@@ -255,9 +252,9 @@ void BaseApp::update(float deltaTime) {
   m_cbChangeOnResize.update(m_deviceContext, nullptr, 0, nullptr, &cbChangesOnResize, 0, 0);
 
   // Modify the color
-  m_vMeshColor.x = (sinf(t * 1.0f) + 1.0f) * 0.5f;
-  m_vMeshColor.y = (cosf(t * 3.0f) + 1.0f) * 0.5f;
-  m_vMeshColor.z = (sinf(t * 5.0f) + 1.0f) * 0.5f;
+  m_vMeshColor.x = 1.0f;
+  m_vMeshColor.y = 1.0f;
+  m_vMeshColor.z = 1.0f;
 
   // Rotate cube around the origin
   m_World = XMMatrixRotationY(t);
