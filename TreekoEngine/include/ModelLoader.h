@@ -4,44 +4,46 @@
     
 
 /*
-  *  @brief Loads 3D model data from files and parses it into MeshComponent objects.
+ * @brief Utility class for loading 3D model data from files.
+ * @note This class is designed to parse geometry files (like .obj)
+ * and populate a MeshComponent with the resulting vertex and index data.
 */
 class ModelLoader {
 public:
-  
+
   /*
-    *  @brief Default constructor for ModelLoader.
+   * @brief Default constructor for ModelLoader.
   */
   ModelLoader() = default;
 
   /*
-    *  @brief Default destructor for ModelLoader.
+   * @brief Default destructor for ModelLoader.
   */
   ~ModelLoader() = default;
 
   /*
-    *  @brief Loads a model from the specified file and outputs the mesh data.
-    *  @param fileName Path to the model file.
-    *  @param outMesh Reference to the MeshComponent to populate.
-    *  @return True if the model was loaded successfully, false otherwise.
+   * @brief Loads a model from the specified file and populates the outMesh.
+   * @param fileName The file path to the 3D model file (e.g., "model.obj").
+   * @param outMesh A reference to the MeshComponent to be filled with geometry data.
+   * @return bool True if the model was loaded and parsed successfully, false otherwise.
   */
   bool
     loadModel(const std::string& fileName, MeshComponent& outMesh);
 
 private:
-  
+
   /*
-    *  @brief Parses a line containing a 2D vector and adds it to the output vector.
-    *  @param streamLine Stream containing the line to parse.
-    *  @param outVector Vector to store the parsed XMFLOAT2.
+   * @brief Helper function to parse a 2-component vector (XMFLOAT2) from a line stream.
+   * @param streamLine The stringstream containing the line data (e.g., "0.5 0.5").
+   * @param outVector The vector pool where the parsed data will be stored.
   */
   void
     parseVec2(std::stringstream& streamLine, std::vector<XMFLOAT2>& outVector);
 
   /*
-    *  @brief Parses a line containing a 3D vector and adds it to the output vector.
-    *  @param streamLine Stream containing the line to parse.
-    *  @param outVector Vector to store the parsed XMFLOAT3.
+   * @brief Helper function to parse a 3-component vector (XMFLOAT3) from a line stream.
+   * @param streamLine The stringstream containing the line data (e.g., "1.0 2.0 3.0").
+   * @param outVector The vector pool where the parsed data will be stored.
   */
   void
     parseVec3(std::stringstream& streamLine, std::vector<XMFLOAT3>& outVector);
