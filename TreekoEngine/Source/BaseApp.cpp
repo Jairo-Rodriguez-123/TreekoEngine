@@ -191,7 +191,7 @@ BaseApp::init() {
     return hr;
   }
 
-  hr = m_textureCube.init(m_device, "Skull", ExtensionType::DDS);
+  hr = m_textureCube.init(m_device, "Stone", ExtensionType::JPG);
 
   // Load the Texture
   if (FAILED(hr)) {
