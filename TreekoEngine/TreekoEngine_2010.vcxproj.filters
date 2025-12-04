@@ -18,6 +18,9 @@
     <Filter Include="Source">
       <UniqueIdentifier>{1ec7c310-3cf8-437b-87ab-abaeb1542d06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Patterns">
+      <UniqueIdentifier>{cdbcac08-cb87-4b5c-81e0-cbed87aedb3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TreekoEngine.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModelLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model3D.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,7 +128,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ModelLoader.h">
+    <ClInclude Include="include\Model3D.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="include\stb_image.h">
       <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IResource.h">
+      <Filter>Include\Patterns</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

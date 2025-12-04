@@ -12,7 +12,7 @@
 #include "MeshComponent.h"
 #include "Buffer.h"
 #include "SamplerState.h"
-#include "ModelLoader.h"
+
 
 /*
  *  @brief Main application class for managing window, device, rendering, and resources.
@@ -147,5 +147,5 @@ private:
 	CBChangesEveryFrame cb;
 
 	/** @brief Utility class for loading 3D model data from files into mesh components. */
-	ModelLoader m_modelLoader;
+	//ModelLoader m_modelLoader;
 };

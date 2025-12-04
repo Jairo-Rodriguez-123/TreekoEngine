@@ -1,4 +1,4 @@
-#include "ModelLoader.h"
+/*#include "ModelLoader.h"
 #include <fstream>      
 #include <sstream>      
 #include <string>       
@@ -131,4 +131,4 @@ ModelLoader::parseVec3(std::stringstream& lineData, std::vector<XMFLOAT3>& dataP
   XMFLOAT3 v3;
   lineData >> v3.x >> v3.y >> v3.z;
   dataPool.push_back(v3);
-} 
+} */
