@@ -1,4 +1,4 @@
-#define STB_IMAGE_IMPLEMENTATION
+ï»¿#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "Texture.h"
 #include "Device.h"
@@ -51,7 +51,7 @@ Texture::init(Device& device,
       return E_FAIL;
     }
 
-    // Crear descripción de textura
+    // Crear descripciï¿½n de textura
     D3D11_TEXTURE2D_DESC textureDesc = {};
     textureDesc.Width = width;
     textureDesc.Height = height;
@@ -100,7 +100,7 @@ Texture::init(Device& device,
       return E_FAIL;
     }
 
-    // Crear descripción de textura
+    // Crear descripciï¿½n de textura
     D3D11_TEXTURE2D_DESC textureDesc = {};
     textureDesc.Width = width;
     textureDesc.Height = height;

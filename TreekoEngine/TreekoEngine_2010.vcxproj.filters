@@ -21,6 +21,33 @@
     <Filter Include="Include\Patterns">
       <UniqueIdentifier>{cdbcac08-cb87-4b5c-81e0-cbed87aedb3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Imgui">
+      <UniqueIdentifier>{f9c049d3-7e7c-4734-a81d-587d8eb14381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\Source">
+      <UniqueIdentifier>{2637a3b0-310b-4ded-839a-70e9e7a87e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\Include">
+      <UniqueIdentifier>{387a685e-2954-41c5-87cd-d420b570bf35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ECS">
+      <UniqueIdentifier>{47941521-ba67-4bb7-a926-f9d7bd6d36d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities">
+      <UniqueIdentifier>{af518d5a-4ae6-4593-a0d6-f8a263796a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Matrix">
+      <UniqueIdentifier>{ddb5f30f-66b0-498c-9cca-44c57fa7eace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Memory">
+      <UniqueIdentifier>{2819e86e-cbaf-40b8-a84b-18c778b6eeae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Vectors">
+      <UniqueIdentifier>{f89677d7-a829-4436-bb31-cfbb838e7aff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Utilities">
+      <UniqueIdentifier>{4f92c60e-bf76-4879-9836-988368f824ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TreekoEngine.cpp">
@@ -69,6 +96,30 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Model3D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_demo.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_dx11.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_win32.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_tables.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_widgets.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_draw.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UserInterface.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -139,6 +190,84 @@
     </ClInclude>
     <ClInclude Include="include\IResource.h">
       <Filter>Include\Patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ResourceManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_dx11.h">
+      <Filter>Imgui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_win32.h">
+      <Filter>Imgui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imconfig.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imgui.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_internal.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_rectpack.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_textedit.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_truetype.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UserInterface.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Component.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Entity.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Actor.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Transform.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Marix\Matrix2x2.h">
+      <Filter>Include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Marix\Matrix3x3.h">
+      <Filter>Include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Marix\Matrix4x4.h">
+      <Filter>Include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Memory\TSharedPointer.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Memory\TStaticPtr.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Memory\TUniquePtr.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Memory\TWeakPointer.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Utilites\EngineMath.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Vectors\Quaternion.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Vectors\Vector2.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Vectors\Vector3.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilites\Vectors\Vector4.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

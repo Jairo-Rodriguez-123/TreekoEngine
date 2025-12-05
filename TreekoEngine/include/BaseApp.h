@@ -1,10 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "Prerequisites.h"
 #include "Window.h"
 #include "Device.h"
 #include "DeviceContext.h"
 #include "SwapChain.h"
-#include "Texture.h";
+#include "Texture.h"
 #include "RenderTargetView.h"
 #include "DepthStencilView.h"
 #include "Viewport.h"
@@ -12,140 +12,67 @@
 #include "MeshComponent.h"
 #include "Buffer.h"
 #include "SamplerState.h"
+#include "Model3D.h"
+#include "ECS/Actor.h"
 
-
-/*
- *  @brief Main application class for managing window, device, rendering, and resources.
- */
 class
 	BaseApp {
 public:
-	/*
-  *  @brief Constructor.
-  *         Initializes the application with the given instance handle and command show parameter.
-  *  @param hInst Handle to the application instance.
-  *  @param nCmdShow Command show parameter for the main window.
-  */
-	BaseApp(HINSTANCE hInst, int nCmdShow);
-
-	/*
-  *  @brief Destructor.
-  *         Automatically calls the destroy() method to ensure proper cleanup.
-  */
+	BaseApp() = default;
 	~BaseApp() { destroy(); }
 
-	/*
-  *  @brief The main entry point and message loop of the application.
-  *         Initializes the application and enters the Win32 message loop.
-  *  @param hInst Handle to the application instance.
-  *  @param nCmdShow Command show parameter for the main window.
-  *  @return int The exit code of the application.
-  */
 	int
 		run(HINSTANCE hInst, int nCmdShow);
 
-	/**
-	 * @brief Initializes all application and graphics systems.
-	 * This includes creating the window, initializing the D3D11 device and
-	 * swap chain, creating render targets, compiling shaders, and setting
-	 * up initial scene geometry and buffers.
-	 * @return HRESULT S_OK if all initializations are successful.
-	 */
 	HRESULT
 		init();
 
-	/**
-	 * @brief Updates the application logic once per frame.
-	 * @param deltaTime The time elapsed since the last frame.
-	 */
 	void
 		update(float deltaTime);
 
-	/**
-	 * @brief Renders a single frame.
-	 * This function binds all necessary pipeline states (shaders, buffers,
-	 * render targets) and issues the final draw calls for the scene.
-	 */
 	void
 		render();
 
-	/**
-	 * @brief Cleans up and releases all allocated resources.
-	 * This ensures all COM objects (Device, SwapChain, Buffers, etc.)
-	 * are properly released and the window is destroyed.
-	 */
 	void
 		destroy();
 
 private:
-	/**
-	 * @brief The static window procedure for handling Win32 messages.
-	 * @param hWnd The handle to the window receiving the message.
-	 * @param message The message identifier.
-	 * @param wParam Additional message-specific information.
-	 * @param lParam Additional message-specific information.
-	 * @return LRESULT The result of the message processing.
-	 */
 	static LRESULT CALLBACK
-		wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+		WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	//--------------------------------------------------------------------------------------
-	// Global Variables
-	//--------------------------------------------------------------------------------------
-	/** @brief The main application window. */
-	Window m_window;
-	/** @brief The D3D11 device (resource factory). */
-	Device m_device;
-	/** @brief The D3D11 device context (command issuer). */
-	DeviceContext m_deviceContext;
-	/** @brief The DXGI swap chain for front/back buffers. */
-	SwapChain m_swapChain;
-	/** @brief The texture resource for the swap chain's back buffer. */
-	Texture m_backBuffer;
-	/** @brief The render target view (RTV) for the back buffer. */
-	RenderTargetView m_renderTargetView;
-	/** @brief The texture resource for the depth-stencil buffer. */
-	Texture m_depthStencil;
-	/** @brief The depth-stencil view (DSV) for the depth buffer. */
-	DepthStencilView m_depthStencilView;
-	/** @brief The viewport configuration. */
-	Viewport m_viewport;
-	/** @brief The vertex and pixel shader program. */
-	ShaderProgram m_shaderProgram;
-	/** @brief The CPU-side mesh data (vertices/indices). */
-	MeshComponent m_mesh;
-	/** @brief The GPU-side vertex buffer. */
-	Buffer m_vertexBuffer;
-	/** @brief The GPU-side index buffer. */
-	Buffer m_indexBuffer;
-	/** @brief GPU constant buffer for data updated once (e.g., View matrix). */
-	Buffer m_cbNeverChanges;
-	/** @brief GPU constant buffer for data updated on resize (e.g., Projection matrix). */
-	Buffer m_cbChangeOnResize;
-	/** @brief GPU constant buffer for data updated every frame (e.g., World matrix). */
-	Buffer m_cbChangesEveryFrame;
-	/** @brief A sample texture for the mesh. */
-	Texture m_textureCube;
-	/** @brief The sampler state for texture sampling. */
-	SamplerState m_samplerState;
+	Window                              m_window;
+	Device															m_device;
+	DeviceContext												m_deviceContext;
+	SwapChain                           m_swapChain;
+	Texture                             m_backBuffer;
+	RenderTargetView									  m_renderTargetView;
+	Texture                             m_depthStencil;
+	DepthStencilView									  m_depthStencilView;
+	Viewport                            m_viewport;
+	ShaderProgram												m_shaderProgram;
+	//MeshComponent												m_mesh;
+	//Buffer															m_vertexBuffer;
+	//Buffer															m_indexBuffer;
+	Buffer															m_cbNeverChanges;
+	Buffer															m_cbChangeOnResize;
+	//Buffer															m_cbChangesEveryFrame;
+	Texture 														m_cyberGunAlbedo;
+	//SamplerState												m_samplerState;
 
-	/** @brief The world transformation matrix. */
-	XMMATRIX m_World;
-	/** @brief The view (camera) transformation matrix. */
-	XMMATRIX m_View;
-	/** @brief The projection (perspective) transformation matrix. */
-	XMMATRIX m_Projection;
-	/** @brief A color tint for the mesh. */
-	XMFLOAT4 m_vMeshColor;
+	//XMMATRIX                            m_World;
+	XMMATRIX                            m_View;
+	XMMATRIX                            m_Projection;
+	//XMFLOAT4                            m_vMeshColor;// (0.7f, 0.7f, 0.7f, 1.0f);
 
-	/** @brief CPU-side struct for the 'ChangeOnResize' constant buffer. */
-	CBChangeOnResize cbChangesOnResize;
-	/** @brief CPU-side struct for the 'NeverChanges' constant buffer. */
-	CBNeverChanges cbNeverChanges;
-	/** @brief CPU-side struct for the 'ChangesEveryFrame' constant buffer. */
-	CBChangesEveryFrame cb;
+	std::vector<EU::TSharedPointer<Actor>> m_actors;
+	EU::TSharedPointer<Actor> m_cyberGun;
 
-	/** @brief Utility class for loading 3D model data from files into mesh components. */
-	//ModelLoader m_modelLoader;
+
+	Model3D* m_model;
+
+
+	CBChangeOnResize										cbChangesOnResize;
+	CBNeverChanges											cbNeverChanges;
+	//CBChangesEveryFrame									cb;
 };

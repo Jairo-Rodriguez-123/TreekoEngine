@@ -2,7 +2,7 @@
 #include "Prerequisites.h"
 
 /*
-  *  @brief Represents a window in the Wildvine Engine.
+  *  @brief Represents a window in the Treeko Engine.
 */
 class
 	Window {

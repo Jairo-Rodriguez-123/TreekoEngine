@@ -1,78 +1,70 @@
-#pragma once
+﻿#pragma once
 #include "Prerequisites.h"
+#include "ECS\Component.h"
 
-/*
-  *  @brief Forward declaration of DeviceContext class.
-*/
-  class DeviceContext;
+class DeviceContext;
 
-/*
-  *  @brief Represents a mesh component with vertex and index data for rendering.
-*/
+/// <summary>
+/// Componente ECS que almacena la informaci�n de geometr�a (malla) de un actor.
+/// Contiene v�rtices, �ndices y contadores b�sicos de la malla.
+/// </summary>
 class
-  MeshComponent  {
+  MeshComponent : public Component {
 public:
-  
-  /*
-    *  @brief Default constructor. Initializes vertex and index counts to zero.
-  */
-  MeshComponent() : m_numVertex(0), m_numIndex(0) {}
+  /// <summary>
+  /// Constructor por defecto.
+  /// Inicializa la malla con cero v�rtices e �ndices y la marca como tipo MESH.
+  /// </summary>
+  MeshComponent() : m_numVertex(0), m_numIndex(0), Component(ComponentType::MESH) {}
 
-  /*
-    *  @brief Virtual destructor for MeshComponent.
-  */
+  /// <summary>
+  /// Destructor virtual por defecto.
+  /// </summary>
   virtual
     ~MeshComponent() = default;
 
-  /*
-    *  @brief Initializes the mesh component.
-  */
+  /// <summary>
+  /// Inicializa el componente de malla.
+  /// Se puede extender en derivadas para reservar memoria o cargar datos.
+  /// </summary>
   void
-    init();
+    init() override {};
 
-  /*
-    *  @brief Updates the mesh component with the given delta time.
-    *  @param deltaTime Time elapsed since last update.
-  */
+  /// <summary>
+  /// Actualiza la malla.
+  /// �til para animaci�n de v�rtices o deformaciones en implementaciones futuras.
+  /// </summary>
+  /// <param name="deltaTime">Tiempo transcurrido desde la �ltima actualizaci�n.</param>
   void
-    update(float deltaTime);
+    update(float deltaTime) override {};
 
-  /*
-    *  @brief Renders the mesh using the provided device context.
-    *  @param deviceContext Reference to the DeviceContext used for rendering.
-  */
+  /// <summary>
+  /// Renderiza la malla.
+  /// Normalmente se usar�a para dibujar buffers asociados a la geometr�a.
+  /// </summary>
+  /// <param name="deviceContext">Contexto del dispositivo para operaciones gr�ficas.</param>
   void
-    render(DeviceContext& deviceContext);
+    render(DeviceContext& deviceContext) override {};
 
-  /*
-    *  @brief Destroys the mesh component and releases resources.
-  */
+  /// <summary>
+  /// Libera recursos asociados al componente de malla.
+  /// </summary>
   void
-    destroy();
+    destroy() override {};
 
 public:
-  
-  /*
-    *  @brief Name of the mesh component.
-  */
+  // Nombre de la malla.
   std::string m_name;
 
-  /*
-    *  @brief Vertex data of the mesh.
-  */
+  // Lista de v�rtices de la malla.
   std::vector<SimpleVertex> m_vertex;
 
-  /*
-    *  @brief Index data of the mesh.
-  */
+  // Lista de �ndices que definen las primitivas de la malla.
   std::vector<unsigned int> m_index;
 
-  /*
-    *  @brief Number of vertices in the mesh.
-  */
+  // N�mero total de v�rtices en la malla.
   int m_numVertex;
-  /*
-    *  @brief Number of indices in the mesh.
-  */
+
+  // N�mero total de �ndices en la malla.
   int m_numIndex;
 };

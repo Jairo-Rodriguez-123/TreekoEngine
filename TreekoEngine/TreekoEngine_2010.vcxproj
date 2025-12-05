@@ -161,7 +161,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -208,7 +208,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -256,7 +256,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -304,7 +304,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -353,7 +353,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -401,7 +401,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -441,6 +441,13 @@
   </ItemDefinitionGroup>
   <ItemGroup />
   <ItemGroup>
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui.cpp" />
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_widgets.cpp" />
     <ClCompile Include="Source\BaseApp.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
     <ClCompile Include="Source\DepthStencilView.cpp" />
@@ -454,6 +461,7 @@
     <ClCompile Include="Source\ShaderProgram.cpp" />
     <ClCompile Include="Source\SwapChain.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
+    <ClCompile Include="Source\UserInterface.cpp" />
     <ClCompile Include="Source\Viewport.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="TreekoEngine.cpp" />
@@ -462,22 +470,48 @@
     <None Include="TreekoEngine.fx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imconfig.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imgui.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_internal.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_truetype.h" />
     <ClInclude Include="include\BaseApp.h" />
     <ClInclude Include="include\buffer.h" />
     <ClInclude Include="include\DepthStencilView.h" />
     <ClInclude Include="include\Device.h" />
     <ClInclude Include="include\DeviceContext.h" />
+    <ClInclude Include="include\ECS\Actor.h" />
+    <ClInclude Include="include\ECS\Component.h" />
+    <ClInclude Include="include\ECS\Entity.h" />
+    <ClInclude Include="include\ECS\Transform.h" />
+    <ClInclude Include="include\EngineUtilites\Marix\Matrix2x2.h" />
+    <ClInclude Include="include\EngineUtilites\Marix\Matrix3x3.h" />
+    <ClInclude Include="include\EngineUtilites\Marix\Matrix4x4.h" />
+    <ClInclude Include="include\EngineUtilites\Memory\TSharedPointer.h" />
+    <ClInclude Include="include\EngineUtilites\Memory\TStaticPtr.h" />
+    <ClInclude Include="include\EngineUtilites\Memory\TUniquePtr.h" />
+    <ClInclude Include="include\EngineUtilites\Memory\TWeakPointer.h" />
+    <ClInclude Include="include\EngineUtilites\Utilites\EngineMath.h" />
+    <ClInclude Include="include\EngineUtilites\Vectors\Quaternion.h" />
+    <ClInclude Include="include\EngineUtilites\Vectors\Vector2.h" />
+    <ClInclude Include="include\EngineUtilites\Vectors\Vector3.h" />
+    <ClInclude Include="include\EngineUtilites\Vectors\Vector4.h" />
     <ClInclude Include="include\InputLayout.h" />
     <ClInclude Include="include\IResource.h" />
     <ClInclude Include="include\MeshComponent.h" />
     <ClInclude Include="include\Model3D.h" />
     <ClInclude Include="include\Prerequisites.h" />
     <ClInclude Include="include\RenderTargetView.h" />
+    <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SamplerState.h" />
     <ClInclude Include="include\ShaderProgram.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\SwapChain.h" />
     <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\UserInterface.h" />
     <ClInclude Include="include\Viewport.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="resource.h" />
