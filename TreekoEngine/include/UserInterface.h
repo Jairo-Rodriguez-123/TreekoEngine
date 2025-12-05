@@ -1,71 +1,41 @@
 ﻿#pragma once
-#include "Prerequisites.h"
+#include "Prerequisites.h" 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
-#include <imgui_internal.h>
+
+class Device;
+class DeviceContext;
 
 /**
  * @class UserInterface
- * @brief Gesti�n de la interfaz gr�fica basada en ImGui.
- *
- * Esta clase encapsula la inicializaci�n, actualizaci�n, renderizado y destrucci�n
- * de una interfaz de usuario utilizando la biblioteca ImGui junto con DirectX 11.
+ * @brief Encapsula el ciclo de vida de Dear ImGui (Init, NewFrame, Render, Shutdown).
  */
-class
-  UserInterface {
+class UserInterface {
 public:
-  /**
-   * @brief Constructor de la clase UserInterface.
-   */
-  UserInterface();
+  UserInterface() = default;
+  ~UserInterface() = default;
 
   /**
-   * @brief Destructor de la clase UserInterface.
+   * @brief Inicializa el contexto de ImGui y los backends de Win32 y DX11.
+   * @param hWnd Handle de la ventana (necesario para el input).
+   * @param device Referencia a tu wrapper de Device.
+   * @param deviceContext Referencia a tu wrapper de DeviceContext.
    */
-  ~UserInterface();
+  void init(void* hWnd, Device& device, DeviceContext& deviceContext);
 
   /**
-   * @brief Inicializa ImGui y su conexi�n con Win32 y DirectX 11.
-   * @param window Puntero a la ventana nativa (HWND).
-   * @param device Dispositivo DirectX 11.
-   * @param deviceContext Contexto del dispositivo DirectX 11.
+   * @brief Inicia un nuevo frame de ImGui. Llamar al principio del loop, antes de la logica del juego.
    */
-  void
-    init(void* window, ID3D11Device* device, ID3D11DeviceContext* deviceContext);
+  void update();
 
   /**
-   * @brief Actualiza el estado interno de la interfaz (frame ImGui).
+   * @brief Renderiza los datos de dibujo de ImGui. Llamar despues de dibujar tu escena 3D, pero antes del SwapChain->Present.
    */
-  void
-    update();
+  void render();
 
   /**
-   * @brief Renderiza todos los elementos de la interfaz construidos en el frame.
+   * @brief Limpia los recursos de ImGui.
    */
-  void
-    render();
-
-  /**
-   * @brief Libera y desmonta todos los recursos asociados a ImGui.
-   */
-  void
-    destroy();
-
-  /**
-   * @brief Control personalizado para manejar un vector 3 dentro de la UI.
-   * @param label Etiqueta visible del control.
-   * @param values Puntero a un arreglo de 3 floats (x, y, z).
-   * @param resetValues Valor al que se restablecen los componentes.
-   * @param columnWidth Ancho de la columna de la etiqueta.
-   */
-  void
-    vec3Control(std::string label,
-      float* values,
-      float resetValues = 0.0f,
-      float columnWidth = 100.0f);
-
-private:
-
-
-};#pragma once
+  void destroy();
+};

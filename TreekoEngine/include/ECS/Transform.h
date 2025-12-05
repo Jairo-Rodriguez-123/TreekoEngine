@@ -3,10 +3,16 @@
 #include "EngineUtilities/Vectors/Vector3.h"
 #include "Component.h"
 
+/*
+  *  @brief Represents a transformation component in the ECS, handling position, rotation, scale, and transformation matrix.
+*/
 class
   Transform : public Component {
 public:
-  // Constructor que inicializa posici�n, rotaci�n y escala por defecto
+  
+  /*
+    *  @brief Default constructor. Initializes position, rotation, scale, and matrix.
+  */
   Transform() : position(),
     rotation(),
     scale(),
@@ -14,65 +20,92 @@ public:
     Component(ComponentType::TRANSFORM) {
   }
 
-  // M�todos para inicializaci�n, actualizaci�n, renderizado y destrucci�n
-  // Inicializa el objeto Transform
+  /*
+    *  @brief Initializes the transform, setting scale to one and matrix to identity.
+  */
   void
     init() {
     scale.one();
     matrix = XMMatrixIdentity();
   }
 
-  // Actualiza el estado del objeto Transform basado en el tiempo transcurrido
-  // @param deltaTime: Tiempo transcurrido desde la �ltima actualizaci�n
+  /*
+    *  @brief Updates the transformation matrix based on position, rotation, and scale.
+    *  @param deltaTime Time elapsed since last update.
+  */
   void
     update(float deltaTime) override {
-    // Aplicar escala
+    
     XMMATRIX scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
-    // Aplicar rotacion
+    
     XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
-    // Aplicar traslacion
+    
     XMMATRIX translationMatrix = XMMatrixTranslation(position.x, position.y, position.z);
 
-    // Componer la matriz final en el orden: scale -> rotation -> translation
     matrix = scaleMatrix * rotationMatrix * translationMatrix;
   }
 
-  // Renderiza el objeto Transform
-  // @param deviceContext: Contexto del dispositivo de renderizado
+  /*
+    *  @brief Renders the transform component. (Empty implementation)
+    *  @param deviceContext Device context for rendering.
+  */
   void
     render(DeviceContext& deviceContext) override {}
 
-  // Destruye el objeto Transform y libera recursos
+  /*
+    *  @brief Destroys the transform component. (Empty implementation)
+  */
   void
     destroy() {}
 
-  // M�todos de acceso a los datos de posici�n
-  // Retorna la posici�n actual
+  /*
+    *  @brief Gets the position vector.
+    *  @return Reference to the position vector.
+  */
   const EU::Vector3&
     getPosition() const { return position; }
 
-  // Establece una nueva posici�n
+  /*
+    *  @brief Sets the position vector.
+    *  @param newPos New position vector.
+  */
   void
     setPosition(const EU::Vector3& newPos) { position = newPos; }
 
-  // M�todos de acceso a los datos de rotaci�n
-  // Retorna la rotaci�n actual
+  /*
+    *  @brief Gets the rotation vector.
+    *  @return Reference to the rotation vector.
+  */
   const EU::Vector3&
     getRotation() const { return rotation; }
 
-  // Establece una nueva rotaci�n
+  /*
+    *  @brief Sets the rotation vector.
+    *  @param newRot New rotation vector.
+  */
   void
     setRotation(const EU::Vector3& newRot) { rotation = newRot; }
 
-  // M�todos de acceso a los datos de escala
-  // Retorna la escala actual
+  /*
+    *  @brief Gets the scale vector.
+    *  @return Reference to the scale vector.
+  */
   const EU::Vector3&
     getScale() const { return scale; }
 
-  // Establece una nueva escala
+  /*
+    *  @brief Sets the scale vector.
+    *  @param newScale New scale vector.
+  */
   void
     setScale(const EU::Vector3& newScale) { scale = newScale; }
 
+  /*
+    *  @brief Sets position, rotation, and scale vectors.
+    *  @param newPos New position vector.
+    *  @param newRot New rotation vector.
+    *  @param newSca New scale vector.
+  */
   void
     setTransform(const EU::Vector3& newPos,
       const EU::Vector3& newRot,
@@ -82,16 +115,30 @@ public:
     scale = newSca;
   }
 
-  // M�todo para trasladar la posici�n del objeto
-  // @param translation: Vector que representa la cantidad de traslado en cada eje
+  /*
+    *  @brief Translates the position by a given vector.
+    *  @param translation Translation vector.
+  */
   void
     translate(const EU::Vector3& translation);
 
 private:
-  EU::Vector3 position;  // Posici�n del objeto
-  EU::Vector3 rotation;  // Rotaci�n del objeto
-  EU::Vector3 scale;     // Escala del objeto
+  /*
+    *  @brief Position vector of the transform.
+  */
+  EU::Vector3 position;  
+  /*
+    *  @brief Rotation vector of the transform.
+  */
+  EU::Vector3 rotation;  
+  /*
+    *  @brief Scale vector of the transform.
+  */
+  EU::Vector3 scale;     
 
 public:
-  XMMATRIX matrix;    // Matriz de transformaci�n
+  /*
+    *  @brief Transformation matrix representing the combined scale, rotation, and translation.
+  */
+  XMMATRIX matrix;    
 };

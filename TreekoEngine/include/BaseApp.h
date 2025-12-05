@@ -14,6 +14,7 @@
 #include "SamplerState.h"
 #include "Model3D.h"
 #include "ECS/Actor.h"
+#include "UserInterface.h"
 
 class
 	BaseApp {
@@ -70,7 +71,7 @@ private:
 
 
 	Model3D* m_model;
-
+  UserInterface m_userInterface;
 
 	CBChangeOnResize										cbChangesOnResize;
 	CBNeverChanges											cbNeverChanges;

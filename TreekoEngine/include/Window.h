@@ -69,5 +69,5 @@ private:
 	/*
    *  @brief Name of the window.
 	*/
-	std::string m_windowName = "Wildvine Engine";
+	std::string m_windowName = "TreekoEngine";
 };

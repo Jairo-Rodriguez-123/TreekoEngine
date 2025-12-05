@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
     <Filter Include="DXUT">
       <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
     </Filter>
@@ -34,19 +30,29 @@
       <UniqueIdentifier>{47941521-ba67-4bb7-a926-f9d7bd6d36d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include\EngineUtilities">
-      <UniqueIdentifier>{af518d5a-4ae6-4593-a0d6-f8a263796a3b}</UniqueIdentifier>
+      <UniqueIdentifier>{ea487e09-1920-4d69-8197-69102a460cd8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include\EngineUtilities\Matrix">
-      <UniqueIdentifier>{ddb5f30f-66b0-498c-9cca-44c57fa7eace}</UniqueIdentifier>
+      <UniqueIdentifier>{8ec883b6-d3ae-430a-9e88-b9b5a61bd9f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include\EngineUtilities\Memory">
-      <UniqueIdentifier>{2819e86e-cbaf-40b8-a84b-18c778b6eeae}</UniqueIdentifier>
+      <UniqueIdentifier>{52335bf1-a774-4fa8-b7fa-6be50791202c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include\EngineUtilities\Vectors">
-      <UniqueIdentifier>{f89677d7-a829-4436-bb31-cfbb838e7aff}</UniqueIdentifier>
+    <Filter Include="Include\EngineUtilities\Structures">
+      <UniqueIdentifier>{62e40343-9c37-4a71-9ca5-d20747f63674}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include\EngineUtilities\Utilities">
-      <UniqueIdentifier>{4f92c60e-bf76-4879-9836-988368f824ea}</UniqueIdentifier>
+      <UniqueIdentifier>{2ceb8926-b035-4649-8622-cbdb04aaa7ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Vectors">
+      <UniqueIdentifier>{14bd614f-3fd8-4ca3-b80c-662507078b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Source\ECS">
+      <UniqueIdentifier>{4eb2a8cc-e5ac-44d6-bcf9-00e422c93694}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +128,9 @@
     <ClCompile Include="Source\UserInterface.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ECS\Actor.cpp">
+      <Filter>Source\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TreekoEngine.fx">
@@ -130,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TreekoEngine.rc">
-      <Filter>Resource Files</Filter>
+      <Filter>Shaders\Resource Files</Filter>
     </ResourceCompile>
     <ClInclude Include="include\Window.h">
       <Filter>Include</Filter>
@@ -165,9 +174,6 @@
     <ClInclude Include="include\BaseApp.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\buffer.h">
-      <Filter>Include</Filter>
-    </ClInclude>
     <ClInclude Include="include\MeshComponent.h">
       <Filter>Include</Filter>
     </ClInclude>
@@ -183,7 +189,7 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
+      <Filter>Shaders\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="include\stb_image.h">
       <Filter>Include</Filter>
@@ -233,40 +239,55 @@
     <ClInclude Include="include\ECS\Transform.h">
       <Filter>Include\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Marix\Matrix2x2.h">
+    <ClInclude Include="include\EngineUtilities\Marix\Matrix2x2.h">
       <Filter>Include\EngineUtilities\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Marix\Matrix3x3.h">
+    <ClInclude Include="include\EngineUtilities\Marix\Matrix3x3.h">
       <Filter>Include\EngineUtilities\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Marix\Matrix4x4.h">
+    <ClInclude Include="include\EngineUtilities\Marix\Matrix4x4.h">
       <Filter>Include\EngineUtilities\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Memory\TSharedPointer.h">
+    <ClInclude Include="include\EngineUtilities\Memory\TSharedPointer.h">
       <Filter>Include\EngineUtilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Memory\TStaticPtr.h">
+    <ClInclude Include="include\EngineUtilities\Memory\TStaticPtr.h">
       <Filter>Include\EngineUtilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Memory\TUniquePtr.h">
+    <ClInclude Include="include\EngineUtilities\Memory\TUniquePtr.h">
       <Filter>Include\EngineUtilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Memory\TWeakPointer.h">
+    <ClInclude Include="include\EngineUtilities\Memory\TWeakPointer.h">
       <Filter>Include\EngineUtilities\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Utilites\EngineMath.h">
+    <ClInclude Include="include\EngineUtilities\Structures\TArray.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TMap.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TPair.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Structures\TSet.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\buffer.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h">
       <Filter>Include\EngineUtilities\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Vectors\Quaternion.h">
+    <ClInclude Include="include\EngineUtilities\Vectors\Quaternion.h">
       <Filter>Include\EngineUtilities\Vectors</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Vectors\Vector2.h">
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h">
       <Filter>Include\EngineUtilities\Vectors</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Vectors\Vector3.h">
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector3.h">
       <Filter>Include\EngineUtilities\Vectors</Filter>
     </ClInclude>
-    <ClInclude Include="include\EngineUtilites\Vectors\Vector4.h">
+    <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h">
       <Filter>Include\EngineUtilities\Vectors</Filter>
     </ClInclude>
   </ItemGroup>

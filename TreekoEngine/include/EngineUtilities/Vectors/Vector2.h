@@ -27,7 +27,7 @@
  * SOFTWARE.
 */
 #pragma once
-#include "EngineUtilites/EngineMath.h"
+#include "EngineUtilities/Utilities/EngineMath.h"
 namespace EU {
   /**
    * @brief A 2D vector class.
