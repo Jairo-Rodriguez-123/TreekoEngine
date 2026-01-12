@@ -2,15 +2,42 @@
 #include "ResourceManager.h"
 #include "imgui.h"
 
+HRESULT
+BaseApp::awake() {
+	HRESULT hr = S_OK;
+
+	//Inicializaci��n de dlls y elementos externos al motor.
+
+ //Log Success Message
+	MESSAGE("Main", "Run", "Application started successfully.");
+	return hr;
+
+}
+
+
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
+  // 1) Initialize window
 	if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
 		return 0;
 	}
 	if (FAILED(init()))
 		return 0;
+
+// 2) Awake Application
+	if (FAILED(awake())) {
+				ERROR("Main", "Run", "Failed to initialize device and device context.");
+    return 0;
+	}
+  // 3)Initialize Device and Device Context
+	if (FAILED(init())) {
+				ERROR("Main", "Run", "Failed to initialize device and device context.");
+        return 0;
+	}
+
+
 	// Main message loop
 	MSG msg = {};
 	LARGE_INTEGER freq, prev;

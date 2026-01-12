@@ -31,6 +31,9 @@ public:
    */
   Actor() = default;
 
+  void 
+  awake() override {}
+
   /**
    * @brief Constructor que inicializa el actor con un dispositivo.
    * @param device Dispositivo usado para inicializar recursos del actor.

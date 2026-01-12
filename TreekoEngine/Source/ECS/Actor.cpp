@@ -17,6 +17,9 @@ Actor::Actor(Device& device) {
 		ERROR("Actor", classNameType.c_str(), "Failed to create new CBChangesEveryFrame");
 	}
 
+	//Awakeg
+	awake();
+
 	hr = m_sampler.init(device);
 	if (FAILED(hr)) {
 		ERROR("Actor", classNameType.c_str(), "Failed to create new SamplerState");
