@@ -32,10 +32,11 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
     return 0;
 	}
   // 3)Initialize Device and Device Context
-	if (FAILED(init())) {
+	/*if (FAILED(init())) {
 				ERROR("Main", "Run", "Failed to initialize device and device context.");
         return 0;
-	}
+				}*/
+	
 
 
 	// Main message loop
