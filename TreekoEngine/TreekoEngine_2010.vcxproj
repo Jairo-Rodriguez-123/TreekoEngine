@@ -451,6 +451,7 @@
     <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="Source\BaseApp.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\DepthStencilView.cpp" />
     <ClCompile Include="Source\Device.cpp" />
     <ClCompile Include="Source\DeviceContext.cpp" />
@@ -504,6 +505,7 @@
     <ClInclude Include="include\EngineUtilities\Structures\TMap.h" />
     <ClInclude Include="include\EngineUtilities\Structures\TPair.h" />
     <ClInclude Include="include\EngineUtilities\Structures\TSet.h" />
+    <ClInclude Include="include\EngineUtilities\Utilities\Camera.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Quaternion.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h" />

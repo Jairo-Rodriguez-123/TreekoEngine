@@ -1,44 +1,37 @@
 ﻿#include "BaseApp.h"
 #include "ResourceManager.h"
-#include "imgui.h"
 
 HRESULT
 BaseApp::awake() {
 	HRESULT hr = S_OK;
 
-	//Inicializaci��n de dlls y elementos externos al motor.
+	// Inicializacion de dlls y elementos externos al motor.
+	m_sceneGraph.init();
 
- //Log Success Message
-	MESSAGE("Main", "Run", "Application started successfully.");
+	// Log Success Message
+	MESSAGE("Main", "Awake", "Application awake successfully.");
 	return hr;
-
 }
-
-
-extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
-  // 1) Initialize window
+	// 1) Initialize Window
 	if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
+		ERROR("Main", "Run", "Failed to initialize window.");
 		return 0;
 	}
-	if (FAILED(init()))
-		return 0;
-
-// 2) Awake Application
+	// 2) Awake Application
 	if (FAILED(awake())) {
-				ERROR("Main", "Run", "Failed to initialize device and device context.");
-    return 0;
+		ERROR("Main", "Run", "Failed to awake application.");
+		return 0;
 	}
-  // 3)Initialize Device and Device Context
-	/*if (FAILED(init())) {
-				ERROR("Main", "Run", "Failed to initialize device and device context.");
-        return 0;
-				}*/
-	
-  //4)Initialize ImGui
-  m_gui.init(m_window, m_device, m_deviceContext);
+	// 3) Initialize Device and Device Context
+	if (FAILED(init())) {
+		ERROR("Main", "Run", "Failed to initialize device and device context.");
+		return 0;
+	}
+	// 4) Initialize GUI
+	m_gui.init(m_window, m_device, m_deviceContext);
 
 	// Main message loop
 	MSG msg = {};
@@ -67,10 +60,6 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
 
 HRESULT
 BaseApp::init() {
-
-	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
-	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
-
 	HRESULT hr = S_OK;
 
 	// Crear swapchain
@@ -128,6 +117,16 @@ BaseApp::init() {
 	}
 
 	// Load Resources -> Modelos, Texturas e Interfaz de usuario
+	std::array<std::string, 6> faces = {
+		"Skybox/cubemap_0.png",
+		"Skybox/cubemap_1.png",
+		"Skybox/cubemap_2.png",
+		"Skybox/cubemap_3.png",
+		"Skybox/cubemap_4.png",
+		"Skybox/cubemap_5.png"
+	};
+	m_skyboxTex.CreateCubemap(m_device, m_deviceContext, faces, true);
+
 
 	// Set CyberGun Actor
 	m_cyberGun = EU::MakeShared<Actor>(m_device);
@@ -135,11 +134,11 @@ BaseApp::init() {
 	if (!m_cyberGun.isNull()) {
 		// Crear vertex buffer y index buffer para el pistol
 		std::vector<MeshComponent> cyberGunMeshes;
-		m_model = new Model3D("eagle.fbx", ModelType::FBX);
+		m_model = new Model3D("CyberGun.fbx", ModelType::FBX);
 		cyberGunMeshes = m_model->GetMeshes();
 
 		std::vector<Texture> cyberGunTextures;
-		hr = m_cyberGunAlbedo.init(m_device, "Piel", ExtensionType::JPG);
+		hr = m_cyberGunAlbedo.init(m_device, "base.tga", ExtensionType::PNG);
 		// Load the Texture
 		if (FAILED(hr)) {
 			ERROR("Main", "InitDevice",
@@ -150,7 +149,7 @@ BaseApp::init() {
 
 		m_cyberGun->setMesh(m_device, cyberGunMeshes);
 		m_cyberGun->setTextures(cyberGunTextures);
-		m_cyberGun->setName("Eagle");
+		m_cyberGun->setName("CyberGun");
 		m_actors.push_back(m_cyberGun);
 
 		m_cyberGun->getComponent<Transform>()->setTransform(EU::Vector3(2.0f, -4.90f, 11.60f),
@@ -160,6 +159,11 @@ BaseApp::init() {
 	else {
 		ERROR("Main", "InitDevice", "Failed to create cyber Gun Actor.");
 		return E_FAIL;
+	}
+
+	// Store the Actors in the Scene Graph
+	for (auto& actor : m_actors) {
+		m_sceneGraph.addEntity(actor.get());
 	}
 
 	// Define the input layout
@@ -185,34 +189,12 @@ BaseApp::init() {
 	Layout.push_back(texcoord);
 
 	// Create the Shader Program
-	hr = m_shaderProgram.init(m_device, "TreekoEngine.fx", Layout);
+	hr = m_shaderProgram.init(m_device, "WildvineEngine.fx", Layout);
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
-
-	//// Create vertex buffer
-	//hr = m_vertexBuffer.init(m_device, TRex[0], D3D11_BIND_VERTEX_BUFFER);
-	//
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize VertexBuffer. HRESULT: " + std::to_string(hr)).c_str());
-	//	return hr;
-	//}
-	//
-	//// Create index buffer
-	//hr = m_indexBuffer.init(m_device, TRex[0], D3D11_BIND_INDEX_BUFFER);
-	//
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize IndexBuffer. HRESULT: " + std::to_string(hr)).c_str());
-	//	return hr;
-	//}
-
-	//auto& resourceMan = ResourceManager::getInstance();
-	//std::shared_ptr<Model3D> model = resourceMan.GetOrLoad<Model3D>("CubeModel", "CyberGun.fbx", ModelType::FBX);
-
 
 	// Create the constant buffers
 	hr = m_cbNeverChanges.init(m_device, sizeof(CBNeverChanges));
@@ -228,39 +210,12 @@ BaseApp::init() {
 			("Failed to initialize ChangeOnResize Buffer. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
+	// Initialize the Camera
+	m_camera.setLens(XM_PIDIV4, m_window.m_width / (float)m_window.m_height, 0.01f, 100.0f);
+	m_camera.setPosition(0.0f, 3.0f, -6.0f);
 
-	//hr = m_cbChangesEveryFrame.init(m_device, sizeof(CBChangesEveryFrame));
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize ChangesEveryFrame Buffer. HRESULT: " + std::to_string(hr)).c_str());
-	//	return hr;
-	//}	
-
-	// Create the sample state
-	//hr = m_samplerState.init(m_device);
-	//if (FAILED(hr)) {
-	//	ERROR("Main", "InitDevice",
-	//		("Failed to initialize SamplerState. HRESULT: " + std::to_string(hr)).c_str());
-	//	return hr;
-	//}
-
-	// Initialize the world matrices
-	//m_World = XMMatrixIdentity();
-
-	// Initialize the view matrix
-	XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -6.0f, 0.0f);
-	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	m_View = XMMatrixLookAtLH(Eye, At, Up);
-
-
-	// Initialize the projection matrix
-	cbNeverChanges.mView = XMMatrixTranspose(m_View);
-	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
-	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
-
-	// --- INICIALIZAR IMGUI ---
-	m_userInterface.init(m_window.m_hWnd, m_device, m_deviceContext); // <--- NUEVO
+	cbNeverChanges.mView = XMMatrixTranspose(m_camera.getView());
+	cbChangesOnResize.mProjection = XMMatrixTranspose(m_camera.getProj());
 
 	return S_OK;
 }
@@ -281,82 +236,53 @@ void BaseApp::update(float deltaTime)
 			dwTimeStart = dwTimeCur;
 		t = (dwTimeCur - dwTimeStart) / 1000.0f;
 	}
-	// Update User Interface
+	// Actualizar la interfaz de usuario
+	m_gui.update(m_window); // <-- Corrección: solo pasar m_window
+	bool show_demo_window = true;
+	//ImGui::ShowDemoWindow(&show_demo_window);
+	m_gui.inspectorGeneral(m_actors[m_gui.selectedActorIndex]);
+	m_gui.outliner(m_actors);
 
-	m_userInterface.update();
+	// Shot cubemap on imgui image
+	static ID3D11ShaderResourceView* faceSRV[6] = { nullptr };
 
-  //Inspector de Actor usando ImGui
-
-
-	// Inicialízalas con los mismos valores que pusiste en el init()
-	static float pos[3] = { 0.0f, 0.0f, 0.0f };
-	static float rot[3] = { -1.73f, 3.15f, 0.0f };
-	static float scl[3] = { 0.02f, 0.02f, 0.02f };
-
-	// Crear una ventana llamada "Inspector"
-	ImGui::Begin("Inspector - Eagle");
-
-	// Texto de ayuda
-	ImGui::Text("Transform del Actor");
-
-	// Controles Deslizables (DragFloat3 para X, Y, Z)
-	// El 0.01f y 0.1f es la velocidad a la que cambian los números al arrastrar el mouse
-	ImGui::DragFloat3("Position", pos, 0.1f);
-	ImGui::DragFloat3("Rotation", rot, 0.01f);
-	ImGui::DragFloat3("Scale", scl, 0.1f);
-
-	// Botón de Reset (Opcional)
-	if (ImGui::Button("Reset Transform")) {
-		pos[0] = 0.0f; pos[1] = 0.0f; pos[2] = 0.0f;
-		rot[0] = 0.0f; rot[1] = 0.0f; rot[2] = 0.0f;
-		scl[0] = 1.0f; scl[1] = 1.0f; scl[2] = 1.0f;
+	if (!faceSRV[0]) {
+		for (UINT i = 0; i < 6; ++i) {
+			faceSRV[i] = m_skyboxTex.CreateCubemapFaceSRV(m_device.m_device, m_skyboxTex.m_texture,
+				DXGI_FORMAT_R8G8B8A8_UNORM, i, 1);
+		}
 	}
 
-	ImGui::End(); // Cerrar la ventana
+	ImGui::Text("Cubemap Faces:");
+	const float thumb = 128.0f;
 
-	// -----------------------------------------------------------
-	// ACTUALIZAR EL ACTOR CON LOS VALORES DE IMGUI
-	// -----------------------------------------------------------
-	if (!m_cyberGun.isNull()) {
-		// Obtenemos el componente Transform y le enviamos los nuevos valores
-		m_cyberGun->getComponent<Transform>()->setTransform(
-			EU::Vector3(pos[0], pos[1], pos[2]), // Nueva Posición
-			EU::Vector3(rot[0], rot[1], rot[2]), // Nueva Rotación
-			EU::Vector3(scl[0], scl[1], scl[2])  // Nueva Escala
-		);
+	for (int i = 0; i < 6; ++i) {
+		ImGui::Image((ImTextureID)faceSRV[i], ImVec2(thumb, thumb));
+		if ((i % 3) != 2) ImGui::SameLine();
 	}
+	ImGui::Begin("Cubemap");
+	ImGui::Text("Skybox Cubemap");
+	ImGui::Image((void*)m_skyboxTex.m_textureFromImg,
+		ImVec2(256, 256),
+		ImVec2(0, 0),
+		ImVec2(1, 1));
+	ImGui::End();
+
 
 	// Actualizar la matriz de proyecci�n y vista
-	cbNeverChanges.mView = XMMatrixTranspose(m_View);
+	m_camera.updateViewMatrix();
+	cbNeverChanges.mView = XMMatrixTranspose(m_camera.getView());
 	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
-	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_window.m_width / (FLOAT)m_window.m_height, 0.01f, 100.0f);
-	cbChangesOnResize.mProjection = XMMatrixTranspose(m_Projection);
 	m_cbChangeOnResize.update(m_deviceContext, nullptr, 0, nullptr, &cbChangesOnResize, 0, 0);
-
+	//cbChangesOnResize.mProjection = XMMatrixTranspose(m_camera.getProj());
 
 	// Update Actors
-	for (auto& actor : m_actors) {
-		actor->update(deltaTime, m_deviceContext);
-	}
+	m_sceneGraph.update(deltaTime, m_deviceContext);
 
-	// Modify the color
-	//m_vMeshColor.x = 1.0f;
-	//m_vMeshColor.y = 1.0f;
-	//m_vMeshColor.z = 1.0f;
-
-	// Rotate cube around the origin
-	// Aplicar escala
-	//XMMATRIX scaleMatrix = XMMatrixScaling(1.0f, 1.0f, 1.0f);
-	// Aplicar rotacion
-	//XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(-0.60f, 3.0f, -0.20f);
-	// Aplicar traslacion
-	//XMMATRIX translationMatrix = XMMatrixTranslation(2.0f, -4.9f, 11.0f);
-
-	// Componer la matriz final en el orden: scale -> rotation -> translation
-	//m_World = scaleMatrix * rotationMatrix * translationMatrix;
-	//cb.mWorld = XMMatrixTranspose(m_World);
-	//cb.vMeshColor = m_vMeshColor;
-	//m_cbChangesEveryFrame.update(m_deviceContext, nullptr, 0, nullptr, &cb, 0, 0);
+	//for (auto& actor : m_actors) {
+	//	actor->update(deltaTime, m_deviceContext);
+	//}
+	m_gui.editTransform(m_camera.getView(), m_camera.getProj(), m_actors[m_gui.selectedActorIndex]);
 }
 
 void
@@ -379,24 +305,14 @@ BaseApp::render() {
 	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
 
 	// Render all actors
-	for (auto& actor : m_actors) {
-		actor->render(m_deviceContext);
-	}
+	m_sceneGraph.render(m_deviceContext);
+
+	//for (auto& actor : m_actors) {
+	//	actor->render(m_deviceContext);
+	//}
 
 	// Render UI
-  m_userInterface.render();
-	// Render the cube
-	 // Asignar buffers Vertex e Index
-	//m_vertexBuffer.render(m_deviceContext, 0, 1);
-	//m_indexBuffer.render(m_deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
-	//m_cbChangesEveryFrame.render(m_deviceContext, 2, 1);
-	//m_cbChangesEveryFrame.render(m_deviceContext, 2, 1, true);
-	// Asignar textura y sampler
-	//m_textureCube.render(m_deviceContext, 0, 1);
-	//m_samplerState.render(m_deviceContext, 0, 1);
-	//m_deviceContext.DrawIndexed(TRex[0].m_numIndex, 0, 0);
-	// Set primitive topology
-	//m_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_gui.render();
 
 	// Present our back buffer to our front buffer
 	m_swapChain.present();
@@ -405,32 +321,26 @@ BaseApp::render() {
 void
 BaseApp::destroy() {
 	if (m_deviceContext.m_deviceContext) m_deviceContext.m_deviceContext->ClearState();
-
-  m_userInterface.destroy();
-
-	//m_samplerState.destroy();
-	//m_textureCube.destroy();
-
+	m_sceneGraph.destroy();
 	m_cbNeverChanges.destroy();
 	m_cbChangeOnResize.destroy();
-	//m_cbChangesEveryFrame.destroy();
-	//m_vertexBuffer.destroy();
-	//m_indexBuffer.destroy();
 	m_shaderProgram.destroy();
 	m_depthStencil.destroy();
 	m_depthStencilView.destroy();
 	m_renderTargetView.destroy();
 	m_swapChain.destroy();
 	m_backBuffer.destroy();
-  m_gui.destroy();
+	m_gui.destroy();
 	m_deviceContext.destroy();
 	m_device.destroy();
 }
 
 LRESULT
 BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-	  return true;
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam)) {
+		return true;
+	}
+
 	switch (message)
 	{
 	case WM_CREATE:

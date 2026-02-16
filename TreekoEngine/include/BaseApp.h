@@ -16,6 +16,7 @@
 #include "ECS/Actor.h"
 #include "EngineUtilities\GUI/GUI.h"
 #include "SceneGraph/SceneGraph.h"
+#include "EngineUtilities/Utilities/Camera.h"
 
 extern IMGUI_IMPL_API
 LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -59,25 +60,22 @@ private:
 	DepthStencilView									  m_depthStencilView;
 	Viewport                            m_viewport;
 	ShaderProgram												m_shaderProgram;
-	//MeshComponent												m_mesh;
-	//Buffer															m_vertexBuffer;
-	//Buffer															m_indexBuffer;
 	Buffer															m_cbNeverChanges;
 	Buffer															m_cbChangeOnResize;
-	//Buffer															m_cbChangesEveryFrame;
 	Texture 														m_cyberGunAlbedo;
-	//SamplerState												m_samplerState;
+	Texture								m_skyboxTex;
 
-	//XMMATRIX                            m_World;
+  Camera 														m_camera;
+
 	XMMATRIX                            m_View;
 	XMMATRIX                            m_Projection;
-	//XMFLOAT4                            m_vMeshColor;// (0.7f, 0.7f, 0.7f, 1.0f);
 
+	SceneGraph													m_sceneGraph;
 	std::vector<EU::TSharedPointer<Actor>> m_actors;
 	EU::TSharedPointer<Actor> m_cyberGun;
 
 
-	Model3D* m_model;
+	Model3D*														m_model;
 
 	CBChangeOnResize										cbChangesOnResize;
 	CBNeverChanges											cbNeverChanges;

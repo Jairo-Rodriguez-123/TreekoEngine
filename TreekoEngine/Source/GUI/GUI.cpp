@@ -326,7 +326,7 @@ GUI::inspectorGeneral(EU::TSharedPointer<Actor> actor) {
 
 	// Input text para el nombre del objeto
 	char objectName[128] = "Cube";
-	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvailWidth() * 0.6f);
+	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x * 0.6f);
 	ImGui::InputText("##ObjectName", &actor->getName()[0], IM_ARRAYSIZE(objectName));
 	ImGui::SameLine();
 
@@ -341,14 +341,14 @@ GUI::inspectorGeneral(EU::TSharedPointer<Actor> actor) {
 	// Dropdown para Tag
 	const char* tags[] = { "Untagged", "Player", "Enemy", "Environment" };
 	static int currentTag = 0;
-	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvailWidth() * 0.5f);
+	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x * 0.5f);
 	ImGui::Combo("Tag", &currentTag, tags, IM_ARRAYSIZE(tags));
 	ImGui::SameLine();
 
 	// Dropdown para Layer
 	const char* layers[] = { "Default", "TransparentFX", "Ignore Raycast", "Water", "UI" };
 	static int currentLayer = 0;
-	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvailWidth() * 0.5f);
+	ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x * 0.5f);
 	ImGui::Combo("Layer", &currentLayer, layers, IM_ARRAYSIZE(layers));
 
 	ImGui::Separator();
