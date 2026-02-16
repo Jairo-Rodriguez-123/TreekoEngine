@@ -4,10 +4,6 @@
     <Filter Include="DXUT">
       <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
-      <Extensions>fx;fxh;hlsl</Extensions>
-    </Filter>
     <Filter Include="Include">
       <UniqueIdentifier>{9525f110-848f-4968-92cf-8f8ed297368f}</UniqueIdentifier>
     </Filter>
@@ -47,12 +43,19 @@
     <Filter Include="Include\EngineUtilities\Vectors">
       <UniqueIdentifier>{14bd614f-3fd8-4ca3-b80c-662507078b35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\Resource Files">
+    <Filter Include="Source\ECS">
+      <UniqueIdentifier>{4eb2a8cc-e5ac-44d6-bcf9-00e422c93694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="Include\Shaders\Resource Files">
       <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Source\ECS">
-      <UniqueIdentifier>{4eb2a8cc-e5ac-44d6-bcf9-00e422c93694}</UniqueIdentifier>
+    <Filter Include="Include\EngineUtilities\GUI">
+      <UniqueIdentifier>{1a00ef70-216a-4440-a26b-441d0622f7d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,15 +134,21 @@
     <ClCompile Include="Source\ECS\Actor.cpp">
       <Filter>Source\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GUI\GUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TreekoEngine.fx">
-      <Filter>Shaders</Filter>
+      <Filter>Include\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TreekoEngine.rc">
-      <Filter>Shaders\Resource Files</Filter>
+      <Filter>Include\Shaders\Resource Files</Filter>
     </ResourceCompile>
     <ClInclude Include="include\Window.h">
       <Filter>Include</Filter>
@@ -189,7 +198,7 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Shaders\Resource Files</Filter>
+      <Filter>Include\Shaders\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="include\stb_image.h">
       <Filter>Include</Filter>
@@ -289,6 +298,12 @@
     </ClInclude>
     <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h">
       <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUI\GUI.h">
+      <Filter>Include\EngineUtilities\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

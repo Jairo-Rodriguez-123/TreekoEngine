@@ -161,7 +161,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -208,7 +208,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -256,7 +256,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -304,7 +304,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -353,7 +353,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -401,7 +401,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;DXUT\Core;DXUT\Optional;./include/fbx/;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\imgui-docking\imgui-docking\backends;C:\Users\Jirs-\TreekoEngine\TreekoEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;FBXSDK_SHARED;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -448,12 +448,14 @@
     <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_draw.cpp" />
     <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_tables.cpp" />
     <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="Source\BaseApp.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
     <ClCompile Include="Source\DepthStencilView.cpp" />
     <ClCompile Include="Source\Device.cpp" />
     <ClCompile Include="Source\DeviceContext.cpp" />
     <ClCompile Include="Source\ECS\Actor.cpp" />
+    <ClCompile Include="Source\GUI\GUI.cpp" />
     <ClCompile Include="Source\InputLayout.cpp" />
     <ClCompile Include="Source\Model3D.cpp" />
     <ClCompile Include="Source\ModelLoader.cpp" />
@@ -479,6 +481,7 @@
     <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="..\..\Imgui\imgui-docking\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="include\BaseApp.h" />
     <ClInclude Include="include\buffer.h" />
     <ClInclude Include="include\DepthStencilView.h" />
@@ -504,6 +507,7 @@
     <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Vector3.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h" />
+    <ClInclude Include="include\GUI\GUI.h" />
     <ClInclude Include="include\InputLayout.h" />
     <ClInclude Include="include\IResource.h" />
     <ClInclude Include="include\MeshComponent.h" />

@@ -37,7 +37,8 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
         return 0;
 				}*/
 	
-
+  //4)Initialize ImGui
+  m_gui.init(m_window, m_device, m_deviceContext);
 
 	// Main message loop
 	MSG msg = {};
@@ -421,6 +422,7 @@ BaseApp::destroy() {
 	m_renderTargetView.destroy();
 	m_swapChain.destroy();
 	m_backBuffer.destroy();
+  m_gui.destroy();
 	m_deviceContext.destroy();
 	m_device.destroy();
 }
