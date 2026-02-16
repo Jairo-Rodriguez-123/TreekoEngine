@@ -461,6 +461,7 @@
     <ClCompile Include="Source\ModelLoader.cpp" />
     <ClCompile Include="Source\RenderTargetView.cpp" />
     <ClCompile Include="Source\SamplerState.cpp" />
+    <ClCompile Include="Source\SceneGraph\SceneGraph.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
     <ClCompile Include="Source\SwapChain.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
@@ -491,6 +492,7 @@
     <ClInclude Include="include\ECS\Component.h" />
     <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\ECS\Transform.h" />
+    <ClInclude Include="include\EngineUtilities\GUI\GUI.h" />
     <ClInclude Include="include\EngineUtilities\Marix\Matrix2x2.h" />
     <ClInclude Include="include\EngineUtilities\Marix\Matrix3x3.h" />
     <ClInclude Include="include\EngineUtilities\Marix\Matrix4x4.h" />
@@ -507,7 +509,6 @@
     <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Vector3.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Vector4.h" />
-    <ClInclude Include="include\GUI\GUI.h" />
     <ClInclude Include="include\InputLayout.h" />
     <ClInclude Include="include\IResource.h" />
     <ClInclude Include="include\MeshComponent.h" />
@@ -516,6 +517,8 @@
     <ClInclude Include="include\RenderTargetView.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SamplerState.h" />
+    <ClInclude Include="include\SceneGraph\HierachyComponent.h" />
+    <ClInclude Include="include\SceneGraph\SceneGraph.h" />
     <ClInclude Include="include\ShaderProgram.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\SwapChain.h" />

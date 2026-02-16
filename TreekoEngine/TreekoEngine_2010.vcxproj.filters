@@ -57,6 +57,12 @@
     <Filter Include="Include\EngineUtilities\GUI">
       <UniqueIdentifier>{1a00ef70-216a-4440-a26b-441d0622f7d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\SceneGraph">
+      <UniqueIdentifier>{ccb6c590-cbc6-40ac-b918-dfb57890a2c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\SceneGraph">
+      <UniqueIdentifier>{9b59573a-ef20-4887-b1c5-09eae3764d80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TreekoEngine.cpp">
@@ -139,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp">
       <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGraph\SceneGraph.cpp">
+      <Filter>Source\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,8 +311,14 @@
     <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h">
       <Filter>Imgui\Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\GUI\GUI.h">
+    <ClInclude Include="include\EngineUtilities\GUI\GUI.h">
       <Filter>Include\EngineUtilities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\SceneGraph.h">
+      <Filter>Include\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\HierachyComponent.h">
+      <Filter>Include\SceneGraph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
