@@ -4,8 +4,8 @@
 /*
   *  @brief Utility class to build D3D11 input layouts in a fluent style.
 */
-class LayoutBuilder
-{
+class 
+  LayoutBuilder {
 public:
   /*
     *  @brief Adds a new input element to the layout (per-vertex by default).
@@ -18,15 +18,14 @@ public:
     *  @param instanceStepRate The instance step rate (default 0).
     *  @return Reference to this LayoutBuilder for chaining.
   */
-  LayoutBuilder& Add(
-    const char* semantic,
-    DXGI_FORMAT format,
-    UINT semanticIndex = 0,
-    UINT inputSlot = 0,
-    UINT alignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT,
-    D3D11_INPUT_CLASSIFICATION slotClass = D3D11_INPUT_PER_VERTEX_DATA,
-    UINT instanceStepRate = 0)
-  {
+  LayoutBuilder& 
+    Add(const char* semantic,
+      DXGI_FORMAT format,
+      UINT semanticIndex = 0,
+      UINT inputSlot = 0,
+      UINT alignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT,
+      D3D11_INPUT_CLASSIFICATION slotClass = D3D11_INPUT_PER_VERTEX_DATA,
+      UINT instanceStepRate = 0) {
     D3D11_INPUT_ELEMENT_DESC d{};
     d.SemanticName = semantic;
     d.SemanticIndex = semanticIndex;

@@ -510,6 +510,7 @@
     <ClInclude Include="include\EngineUtilities\Structures\TPair.h" />
     <ClInclude Include="include\EngineUtilities\Structures\TSet.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\Camera.h" />
+    <ClInclude Include="include\EngineUtilities\Utilities\EditorViewportPass.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\LayoutBuilder.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\Skybox.h" />
