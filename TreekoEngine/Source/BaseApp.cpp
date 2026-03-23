@@ -16,7 +16,7 @@ BaseApp::awake() {
 int
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
 	// 1) Initialize Window
-	if (FAILED(m_window.init(hInst, nCmdShow, WndProc))) {
+	if (FAILED(m_window.init(hInst, nCmdShow, WndProc, this))) {
 		ERROR("Main", "Run", "Failed to initialize window.");
 		return 0;
 	}
@@ -105,7 +105,7 @@ BaseApp::init() {
 			("Failed to initialize DepthStencilView. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
-
+	m_d3dReady = true;
 
 	// Crear el m_viewport
 	hr = m_viewport.init(m_window);
@@ -127,8 +127,6 @@ BaseApp::init() {
 	};
 	m_skyboxTex.CreateCubemap(m_device, m_deviceContext, faces, false);
 
-
-
 	// Set CyberGun Actor
 	m_cyberGun = EU::MakeShared<Actor>(m_device);
 
@@ -139,21 +137,48 @@ BaseApp::init() {
 		cyberGunMeshes = m_model->GetMeshes();
 
 		std::vector<Texture> cyberGunTextures;
-		hr = m_cyberGunAlbedo.init(m_device, "base.tga", ExtensionType::PNG);
-		// Load the Texture
+		hr = m_AlbedoSRV.init(m_device, "Textures/CyberGun/base.tga", PNG);
 		if (FAILED(hr)) {
 			ERROR("Main", "InitDevice",
-				("Failed to initialize cyberGunAlbedo. HRESULT: " + std::to_string(hr)).c_str());
+				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
 			return hr;
 		}
-		cyberGunTextures.push_back(m_cyberGunAlbedo);
+		hr = m_MetallicSRV.init(m_device, "Textures/CyberGun/metallic.tga", PNG);
+		if (FAILED(hr)) {
+			ERROR("Main", "InitDevice",
+				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			return hr;
+		}
+		hr = m_RoughnessSRV.init(m_device, "Textures/CyberGun/roughness.tga", PNG);
+		if (FAILED(hr)) {
+			ERROR("Main", "InitDevice",
+				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			return hr;
+		}
+		hr = m_AOSRV.init(m_device, "Textures/CyberGun/ao.tga", PNG);
+		if (FAILED(hr)) {
+			ERROR("Main", "InitDevice",
+				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			return hr;
+		}
+		hr = m_NormalSRV.init(m_device, "Textures/CyberGun/normal.tga", PNG);
+		if (FAILED(hr)) {
+			ERROR("Main", "InitDevice",
+				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			return hr;
+		}
+		cyberGunTextures.push_back(m_AlbedoSRV);
+		cyberGunTextures.push_back(m_NormalSRV);
+		cyberGunTextures.push_back(m_MetallicSRV);
+		cyberGunTextures.push_back(m_RoughnessSRV);
+		cyberGunTextures.push_back(m_AOSRV);
 
 		m_cyberGun->setMesh(m_device, cyberGunMeshes);
 		m_cyberGun->setTextures(cyberGunTextures);
 		m_cyberGun->setName("CyberGun");
 		m_actors.push_back(m_cyberGun);
 
-		m_cyberGun->getComponent<Transform>()->setTransform(EU::Vector3(2.0f, -4.90f, 11.60f),
+		m_cyberGun->getComponent<Transform>()->setTransform(EU::Vector3(2.0f, -1.90f, 11.60f),
 			EU::Vector3(-0.60f, 3.0f, -0.20f),
 			EU::Vector3(1.0f, 1.0f, 1.0f));
 	}
@@ -167,30 +192,16 @@ BaseApp::init() {
 		m_sceneGraph.addEntity(actor.get());
 	}
 
-	// Define the input layout
-	std::vector<D3D11_INPUT_ELEMENT_DESC> Layout;
-	D3D11_INPUT_ELEMENT_DESC position;
-	position.SemanticName = "POSITION";
-	position.SemanticIndex = 0;
-	position.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-	position.InputSlot = 0;
-	position.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
-	position.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-	position.InstanceDataStepRate = 0;
-	Layout.push_back(position);
+	LayoutBuilder builder;
 
-	D3D11_INPUT_ELEMENT_DESC texcoord;
-	texcoord.SemanticName = "TEXCOORD";
-	texcoord.SemanticIndex = 0;
-	texcoord.Format = DXGI_FORMAT_R32G32_FLOAT;
-	texcoord.InputSlot = 0;
-	texcoord.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT /*0*/;
-	texcoord.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-	texcoord.InstanceDataStepRate = 0;
-	Layout.push_back(texcoord);
+	builder.Add("POSITION", DXGI_FORMAT_R32G32B32_FLOAT)
+		.Add("NORMAL", DXGI_FORMAT_R32G32B32_FLOAT)
+		.Add("TANGENT", DXGI_FORMAT_R32G32B32_FLOAT)
+		.Add("BITANGENT", DXGI_FORMAT_R32G32B32_FLOAT)
+		.Add("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT);
 
 	// Create the Shader Program
-	hr = m_shaderProgram.init(m_device, "WildvineEngine.fx", Layout);
+	hr = m_shaderProgram.init(m_device, "PBRShader.hlsl", builder);
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
@@ -198,25 +209,18 @@ BaseApp::init() {
 	}
 
 	// Create the constant buffers
-	hr = m_cbNeverChanges.init(m_device, sizeof(CBNeverChanges));
+	hr = m_constantBuffer.init(m_device, sizeof(CBMain));
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
-			("Failed to initialize NeverChanges Buffer. HRESULT: " + std::to_string(hr)).c_str());
+			("Failed to initialize m_constantBuffer Buffer. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
 
-	hr = m_cbChangeOnResize.init(m_device, sizeof(CBChangeOnResize));
-	if (FAILED(hr)) {
-		ERROR("Main", "InitDevice",
-			("Failed to initialize ChangeOnResize Buffer. HRESULT: " + std::to_string(hr)).c_str());
-		return hr;
-	}
-	// Initialize the Camera
 	m_camera.setLens(XM_PIDIV4, m_window.m_width / (float)m_window.m_height, 0.01f, 100.0f);
 	m_camera.setPosition(0.0f, 3.0f, -6.0f);
 
-	cbNeverChanges.mView = XMMatrixTranspose(m_camera.getView());
-	cbChangesOnResize.mProjection = XMMatrixTranspose(m_camera.getProj());
+	m_constantBufferStruct.LightColor = EU::Vector3(1.0f, 1.0f, 1.0f);
+	m_constantBufferStruct.LightDir = EU::Vector3(-0.20f, -1.0f, 1.0f);
 
 	// Initialize the Skybox pass -> Carga de textura + creaci�n de buffers/ shaders espec�ficos para el skybox
 	m_skybox.init(m_device, &m_deviceContext, m_skyboxTex);
@@ -263,15 +267,25 @@ void BaseApp::update(float deltaTime)
 
 	// Actualizar la matriz de proyecci�n y vista
 	m_camera.updateViewMatrix();
-	cbNeverChanges.mView = XMMatrixTranspose(m_camera.getView());
-	m_cbNeverChanges.update(m_deviceContext, nullptr, 0, nullptr, &cbNeverChanges, 0, 0);
-	m_cbChangeOnResize.update(m_deviceContext, nullptr, 0, nullptr, &cbChangesOnResize, 0, 0);
-	//cbChangesOnResize.mProjection = XMMatrixTranspose(m_camera.getProj());
+
+	XMStoreFloat4x4(&m_constantBufferStruct.View, XMMatrixTranspose(m_camera.getView()));
+	XMStoreFloat4x4(&m_constantBufferStruct.Projection, XMMatrixTranspose(m_camera.getProj()));
+	m_constantBufferStruct.CameraPos = m_camera.getPosition();
+
+	// Luz blanca fuerte
+	m_gui.vec3Control("Light Direction", &m_constantBufferStruct.LightDir.x, 0.1f);
+	m_gui.vec3Control("Light Color", &m_constantBufferStruct.LightColor.x, 0.1f);
+
+	// Update Skybox Pass -> Solo necesita la vista sin traslaci�n + proyecci�n para funcionar correctamente (ver m�todo update de Skybox)
+	m_skybox.update(m_deviceContext, m_camera);
+
+	// Update constant buffer for Scene Pass
+	m_constantBuffer.update(m_deviceContext, nullptr, 0, nullptr, &m_constantBufferStruct, 0, 0);
 
 	// Update Actors
 	m_sceneGraph.update(deltaTime, m_deviceContext);
 
-	m_gui.editTransform(m_camera.getView(), m_camera.getProj(), m_actors[m_gui.selectedActorIndex]);
+	m_gui.editTransform(m_camera, m_window, m_actors[m_gui.selectedActorIndex]);
 }
 
 void
@@ -283,24 +297,22 @@ BaseApp::render() {
 	m_depthStencilView.render(m_deviceContext);
 
 	// 1) SKYBOX PASS
-	m_skybox.render(m_deviceContext, m_camera);
+	m_skybox.render(m_deviceContext);
 
 	// 2) RESTAURAR ESTADOS + PIPELINE DE ESCENA
 	m_defaultRasterizer.render(m_deviceContext);
 	m_defaultDepthStencil.render(m_deviceContext, 0, false);
 
 	// limpia SRVs por seguridad
-	ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
-	m_deviceContext.m_deviceContext->PSSetShaderResources(10, 1, nullSRV);
-	m_deviceContext.m_deviceContext->PSSetShaderResources(0, 1, nullSRV);
+	//ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+	//m_deviceContext.m_deviceContext->PSSetShaderResources(10, 1, nullSRV);
+	//m_deviceContext.m_deviceContext->PSSetShaderResources(0, 1, nullSRV);
 
 	// Re-bindea shader/layout de escena
 	m_shaderProgram.render(m_deviceContext);
-	//m_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// CBs para VS (view/proj)
-	m_cbNeverChanges.render(m_deviceContext, 0, 1);
-	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
+	m_constantBuffer.render(m_deviceContext, 0, 1, true);
 
 	// 3) SCENE PASS
 	m_sceneGraph.render(m_deviceContext);
@@ -315,8 +327,15 @@ void
 BaseApp::destroy() {
 	if (m_deviceContext.m_deviceContext) m_deviceContext.m_deviceContext->ClearState();
 	m_sceneGraph.destroy();
-	m_cbNeverChanges.destroy();
-	m_cbChangeOnResize.destroy();
+	m_AlbedoSRV.destroy();
+	m_MetallicSRV.destroy();
+	m_NormalSRV.destroy();
+	m_RoughnessSRV.destroy();
+	m_AOSRV.destroy();
+	m_defaultRasterizer.destroy();
+	m_defaultDepthStencil.destroy();
+	//m_cbNeverChanges.destroy();
+	//m_cbChangeOnResize.destroy();
 	m_shaderProgram.destroy();
 	m_depthStencil.destroy();
 	m_depthStencilView.destroy();
@@ -346,9 +365,75 @@ BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		EndPaint(hWnd, &ps);
 	}
 							 return 0;
+	case WM_SIZE:
+	{
+		// Evita recrear cuando est� minimizada
+		if (wParam == SIZE_MINIMIZED) return 0;
+
+		UINT newW = LOWORD(lParam);
+		UINT newH = HIWORD(lParam);
+		if (newW == 0 || newH == 0) return 0;
+
+		// Recupera tu instancia BaseApp (lo m�s com�n es guardarla en GWLP_USERDATA en WM_CREATE)
+		BaseApp* app = reinterpret_cast<BaseApp*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+		if (app) app->onResize(newW, newH);
+
+		return 0;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+void BaseApp::onResize(UINT newW, UINT newH)
+{
+	// 1) Actualiza window size (tu init lo calcula con GetClientRect solo una vez) :contentReference[oaicite:6]{index=6}
+	if (!m_d3dReady) {
+		// Aun as� puedes actualizar el tama�o l�gico de la ventana
+		m_window.m_width = (int)newW;
+		m_window.m_height = (int)newH;
+		return;
+	}
+
+	if (!m_deviceContext.m_deviceContext || !m_swapChain.m_swapChain) return;
+	if (newW == 0 || newH == 0) return;
+
+	m_window.m_width = (int)newW;
+	m_window.m_height = (int)newH;
+	// 2) Desbindea targets actuales (clave antes de destruir)
+	ID3D11RenderTargetView* nullRTV = nullptr;
+	m_deviceContext.m_deviceContext->OMSetRenderTargets(1, &nullRTV, nullptr);
+
+	// 3) Libera recursos dependientes del tama�o (RTV/DSV/Depth/BackBuffer)
+	m_renderTargetView.destroy();
+	m_depthStencilView.destroy();
+	m_depthStencil.destroy();
+	m_backBuffer.destroy();
+
+	// 4) Resize swapchain
+	HRESULT hr = m_swapChain.resizeBuffers(newW, newH);
+	if (FAILED(hr)) return;
+
+	// 5) Re-obt�n backbuffer
+	hr = m_swapChain.getBackBuffer(m_backBuffer);
+	if (FAILED(hr)) return;
+
+	// 6) Re-crea RTV
+	hr = m_renderTargetView.init(m_device, m_backBuffer, DXGI_FORMAT_R8G8B8A8_UNORM);
+	if (FAILED(hr)) return;
+
+	// 7) Re-crea Depth/DSV (tu init actual lo hace con m_window.m_width/m_height) :contentReference[oaicite:7]{index=7}
+	hr = m_depthStencil.init(m_device, newW, newH, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL, 4, 0);
+	if (FAILED(hr)) return;
+
+	hr = m_depthStencilView.init(m_device, m_depthStencil, DXGI_FORMAT_D24_UNORM_S8_UINT);
+	if (FAILED(hr)) return;
+
+	// 8) Viewport
+	m_viewport.init(m_window);
+
+	// 9) C�mara (aspect ratio) (tu c�mara lo calcula a partir de m_window) :contentReference[oaicite:8]{index=8}
+	m_camera.setLens(XM_PIDIV4, newW / (float)newH, 0.01f, 100.0f);
 }

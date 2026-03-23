@@ -76,6 +76,9 @@ public:
   void
     render(DeviceContext& deviceContext) override;
 
+  void
+    renderForSkybox(DeviceContext& deviceContext);
+
   /**
    * @brief Libera todos los recursos asociados al actor.
    *
@@ -155,6 +158,7 @@ private:
   // Recursos para sombras
   ShaderProgram m_shaderShadow;          ///< Shader program usado para renderizar sombras.
   Buffer m_shaderBuffer;                 ///< Buffer auxiliar para datos de sombras.
+  DepthStencilState m_shadowDepthStencilState; ///< Estado de profundidad/esténcil para sombras.
   //BlendState m_shadowBlendState;         ///< Estado de blending espec�fico para sombras.
   //DepthStencilState m_shadowDepthStencilState; ///< Estado de profundidad/est�ncil para sombras.
   CBChangesEveryFrame m_cbShadow;        ///< Constant buffer espec�fico de sombras.

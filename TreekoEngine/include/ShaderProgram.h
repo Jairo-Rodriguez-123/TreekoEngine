@@ -5,6 +5,7 @@
 // Forward declarations
 class Device;
 class DeviceContext;
+class LayoutBuilder;
 
 /*
   @class ShaderProgram
@@ -35,7 +36,7 @@ public:
   HRESULT
     init(Device& device,
       const std::string& fileName,
-      std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+      LayoutBuilder layoutBuilder);
 
   /*
     @brief Updates the shader program.
@@ -71,7 +72,7 @@ public:
   */
   HRESULT
     CreateInputLayout(Device& device,
-      std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+      LayoutBuilder);
 
   /*
     @brief Creates a shader of the specified type.

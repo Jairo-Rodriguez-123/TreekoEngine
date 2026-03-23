@@ -511,6 +511,7 @@
     <ClInclude Include="include\EngineUtilities\Structures\TSet.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\Camera.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h" />
+    <ClInclude Include="include\EngineUtilities\Utilities\LayoutBuilder.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\Skybox.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Quaternion.h" />
     <ClInclude Include="include\EngineUtilities\Vectors\Vector2.h" />

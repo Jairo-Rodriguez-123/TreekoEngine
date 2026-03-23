@@ -1,9 +1,10 @@
 #include "Window.h"
 #include "Device.h"
+#include  "BaseApp.h"
 
 
 HRESULT
-Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
+Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc, BaseApp* app) {
   // Store  instance of the class
   m_hInst = hInstance;
 
@@ -40,7 +41,7 @@ Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
     NULL,
     NULL,
     hInstance,
-    NULL);
+    app);
 
   if (!m_hWnd) {
     MessageBox(nullptr, "CreateWindow failed!", "Error", MB_OK);

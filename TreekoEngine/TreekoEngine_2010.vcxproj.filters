@@ -344,5 +344,8 @@
     <ClInclude Include="include\EngineUtilities\Utilities\Skybox.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Utilities\LayoutBuilder.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

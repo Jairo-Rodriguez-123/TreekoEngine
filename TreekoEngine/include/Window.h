@@ -1,6 +1,8 @@
 #pragma once
 #include "Prerequisites.h"
 
+class BaseApp;
+
 /*
   *  @brief Represents a window in the Treeko Engine.
 */
@@ -24,7 +26,7 @@ public:
    *  @return HRESULT indicating success or failure.
 	*/
 	HRESULT
-		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
+		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc, BaseApp* app);
 
 	/*
    *  @brief Updates the window state.

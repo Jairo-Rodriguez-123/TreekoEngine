@@ -18,6 +18,7 @@
 #include "SceneGraph\SceneGraph.h"
 #include "EngineUtilities\Utilities\Camera.h"
 #include "EngineUtilities\Utilities\Skybox.h"
+#include "EngineUtilities\Utilities\LayoutBuilder.h"
 
 extern IMGUI_IMPL_API
 LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -46,6 +47,9 @@ public:
 	void
 		destroy();
 
+	void
+    onResize(UINT newW, UINT newH);
+
 private:
 	static LRESULT CALLBACK
 		WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -61,14 +65,16 @@ private:
 	DepthStencilView									  m_depthStencilView;
 	Viewport                            m_viewport;
 	ShaderProgram												m_shaderProgram;
-	Buffer															m_cbNeverChanges;
-	Buffer															m_cbChangeOnResize;
+  bool m_d3dRready = false;
+	Buffer															m_constantBuffer;
+	CBMain															m_constantBufferStruct;
 	Texture 														m_cyberGunAlbedo;
 	Texture															m_skyboxTex;
 
 	Camera															m_camera;
 
 	SceneGraph													m_sceneGraph;
+
 	std::vector<EU::TSharedPointer<Actor>> m_actors;
 	EU::TSharedPointer<Actor> m_cyberGun;
 
@@ -79,7 +85,10 @@ private:
 	CBNeverChanges											cbNeverChanges;
 	GUI																m_gui;
 
+	EU::Vector3 m_cameraPos;
+
 	Skybox m_skybox;
+  Texture m_skyboxTex;
 	RasterizerState m_defaultRasterizer;
 	DepthStencilState m_defaultDepthStencil;
 };

@@ -34,11 +34,11 @@ public:
 
   /*
     *  @brief Initializes the swap chain.
-    *  @param device Reference to the device.
-    *  @param deviceContext Reference to the device context.
-    *  @param backBuffer Reference to the back buffer texture.
-    *  @param window The window to associate with the swap chain.
-    *  @return HRESULT indicating success or failure.
+    *    @param device Reference to the device.
+    *    @param deviceContext Reference to the device context.
+    *    @param backBuffer Reference to the back buffer texture.
+    *    @param window The window to associate with the swap chain.
+    *    @return HRESULT indicating success or failure.
   */
   HRESULT
     init(Device& device,
@@ -69,6 +69,23 @@ public:
   */
   void
     present();
+
+  /*
+    *  @brief Resizes the swap chain buffers.
+    *    @param width The new width of the buffers.
+    *    @param height The new height of the buffers.
+    *    @return HRESULT indicating success or failure.
+  */
+  HRESULT
+    resizeBuffers(UINT width, UINT height);
+
+  /*
+    *  @brief Retrieves the back buffer texture.
+    *    @param backBuffer Reference to the back buffer texture to fill.
+    *    @return HRESULT indicating success or failure.
+  */
+  HRESULT
+    getBackBuffer(Texture& backBuffer);
 
 public:
   

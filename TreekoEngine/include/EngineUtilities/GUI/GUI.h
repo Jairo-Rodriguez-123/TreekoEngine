@@ -7,10 +7,12 @@
 #include "imgui_impl_dx11.h"
 #include "ImGuizmo.h"
 
+class Viewport;
 class Window;
 class Device;
 class DeviceContext;
 class Actor;
+class Camera;
 
 class
   GUI {

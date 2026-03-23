@@ -5,6 +5,8 @@
 #include "DeviceContext.h"
 #include "MeshComponent.h"
 #include "ECS\Actor.h"
+#include "EngineUtilities\Utilities\Camera.h"
+
 //#include "imgui_internal.h"
 static ImGuizmo::OPERATION mCurrentGizmoOperation(ImGuizmo::TRANSLATE);
 void
@@ -48,7 +50,7 @@ GUI::update(Viewport& viewport, Window& window) {
 	ImGuizmo::BeginFrame();
 	ImGuiIO& io = ImGui::GetIO();
 	ImGuizmo::SetOrthographic(false);
-	ImGuizmo::SetRect(0, 0, (float)window.m_width, (float)window.m_height);
+	//ImGuizmo::SetRect(0, 0, (float)window.m_width, (float)window.m_height);
 
 	// In Program always
 	ToolBar();
@@ -419,7 +421,7 @@ GUI::outliner(const std::vector<EU::TSharedPointer<Actor>>& actors) {
 }
 
 void
-GUI::editTransform(const XMMATRIX& view, const XMMATRIX& projection, EU::TSharedPointer<Actor> actor)
+	GUI::editTransform(Camera& cam, Window& window, EU::TSharedPointer<Actor> actor)
 {
 	static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::WORLD);
 	auto transform = actor->getComponent<Transform>();
