@@ -152,6 +152,15 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Skybox.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RasterizerState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthStencilState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TreekoEngine.fx">
@@ -325,6 +334,15 @@
     </ClInclude>
     <ClInclude Include="include\EngineUtilities\Utilities\Camera.h">
       <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RasterizerState.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DepthStencilState.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Utilities\Skybox.h">
+      <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -125,7 +125,8 @@ BaseApp::init() {
 		"Skybox/cubemap_4.png",
 		"Skybox/cubemap_5.png"
 	};
-	m_skyboxTex.CreateCubemap(m_device, m_deviceContext, faces, true);
+	m_skyboxTex.CreateCubemap(m_device, m_deviceContext, faces, false);
+
 
 
 	// Set CyberGun Actor
@@ -217,6 +218,23 @@ BaseApp::init() {
 	cbNeverChanges.mView = XMMatrixTranspose(m_camera.getView());
 	cbChangesOnResize.mProjection = XMMatrixTranspose(m_camera.getProj());
 
+	// Initialize the Skybox pass -> Carga de textura + creaci�n de buffers/ shaders espec�ficos para el skybox
+	m_skybox.init(m_device, &m_deviceContext, m_skyboxTex);
+
+	// Initialize default states (Rasterizer, DepthStencil)
+	hr = m_defaultRasterizer.init(m_device, D3D11_FILL_SOLID, D3D11_CULL_BACK, false, true);
+	if (FAILED(hr)) {
+		ERROR("Main", "InitDevice",
+			("Failed to initialize default Rasterizer. HRESULT: " + std::to_string(hr)).c_str());
+		return hr;
+	}
+	hr = m_defaultDepthStencil.init(m_device, true, D3D11_DEPTH_WRITE_MASK_ALL, D3D11_COMPARISON_LESS);
+	if (FAILED(hr)) {
+		ERROR("Main", "InitDevice",
+			("Failed to initialize default DepthStencilState. HRESULT: " + std::to_string(hr)).c_str());
+		return hr;
+	}
+
 	return S_OK;
 }
 
@@ -236,38 +254,12 @@ void BaseApp::update(float deltaTime)
 			dwTimeStart = dwTimeCur;
 		t = (dwTimeCur - dwTimeStart) / 1000.0f;
 	}
-	// Actualizar la interfaz de usuario
-	m_gui.update(m_window); // <-- Corrección: solo pasar m_window
+	// Update User Interface
+	m_gui.update(m_viewport, m_window);
 	bool show_demo_window = true;
 	//ImGui::ShowDemoWindow(&show_demo_window);
 	m_gui.inspectorGeneral(m_actors[m_gui.selectedActorIndex]);
 	m_gui.outliner(m_actors);
-
-	// Shot cubemap on imgui image
-	static ID3D11ShaderResourceView* faceSRV[6] = { nullptr };
-
-	if (!faceSRV[0]) {
-		for (UINT i = 0; i < 6; ++i) {
-			faceSRV[i] = m_skyboxTex.CreateCubemapFaceSRV(m_device.m_device, m_skyboxTex.m_texture,
-				DXGI_FORMAT_R8G8B8A8_UNORM, i, 1);
-		}
-	}
-
-	ImGui::Text("Cubemap Faces:");
-	const float thumb = 128.0f;
-
-	for (int i = 0; i < 6; ++i) {
-		ImGui::Image((ImTextureID)faceSRV[i], ImVec2(thumb, thumb));
-		if ((i % 3) != 2) ImGui::SameLine();
-	}
-	ImGui::Begin("Cubemap");
-	ImGui::Text("Skybox Cubemap");
-	ImGui::Image((void*)m_skyboxTex.m_textureFromImg,
-		ImVec2(256, 256),
-		ImVec2(0, 0),
-		ImVec2(1, 1));
-	ImGui::End();
-
 
 	// Actualizar la matriz de proyecci�n y vista
 	m_camera.updateViewMatrix();
@@ -279,42 +271,43 @@ void BaseApp::update(float deltaTime)
 	// Update Actors
 	m_sceneGraph.update(deltaTime, m_deviceContext);
 
-	//for (auto& actor : m_actors) {
-	//	actor->update(deltaTime, m_deviceContext);
-	//}
 	m_gui.editTransform(m_camera.getView(), m_camera.getProj(), m_actors[m_gui.selectedActorIndex]);
 }
 
 void
 BaseApp::render() {
-	// Set Render Target View
 	float ClearColor[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
 	m_renderTargetView.render(m_deviceContext, m_depthStencilView, 1, ClearColor);
 
-	// Set Viewport
 	m_viewport.render(m_deviceContext);
-
-	// Set depth stencil view
 	m_depthStencilView.render(m_deviceContext);
 
-	// Set shader program
-	m_shaderProgram.render(m_deviceContext);
+	// 1) SKYBOX PASS
+	m_skybox.render(m_deviceContext, m_camera);
 
-	// Asignar buffers constantes
+	// 2) RESTAURAR ESTADOS + PIPELINE DE ESCENA
+	m_defaultRasterizer.render(m_deviceContext);
+	m_defaultDepthStencil.render(m_deviceContext, 0, false);
+
+	// limpia SRVs por seguridad
+	ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+	m_deviceContext.m_deviceContext->PSSetShaderResources(10, 1, nullSRV);
+	m_deviceContext.m_deviceContext->PSSetShaderResources(0, 1, nullSRV);
+
+	// Re-bindea shader/layout de escena
+	m_shaderProgram.render(m_deviceContext);
+	//m_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// CBs para VS (view/proj)
 	m_cbNeverChanges.render(m_deviceContext, 0, 1);
 	m_cbChangeOnResize.render(m_deviceContext, 1, 1);
 
-	// Render all actors
+	// 3) SCENE PASS
 	m_sceneGraph.render(m_deviceContext);
 
-	//for (auto& actor : m_actors) {
-	//	actor->render(m_deviceContext);
-	//}
-
-	// Render UI
+	// 4) GUI
 	m_gui.render();
 
-	// Present our back buffer to our front buffer
 	m_swapChain.present();
 }
 
@@ -341,21 +334,18 @@ BaseApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		return true;
 	}
 
-	switch (message)
-	{
-	case WM_CREATE:
-	{
+	switch (message) {
+	case WM_CREATE: {
 		CREATESTRUCT* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
 		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)pCreate->lpCreateParams);
 	}
-	return 0;
-	case WM_PAINT:
-	{
+								return 0;
+	case WM_PAINT: {
 		PAINTSTRUCT ps;
 		BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
 	}
-	return 0;
+							 return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;

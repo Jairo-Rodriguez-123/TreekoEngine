@@ -15,8 +15,9 @@
 #include "Model3D.h"
 #include "ECS/Actor.h"
 #include "EngineUtilities\GUI/GUI.h"
-#include "SceneGraph/SceneGraph.h"
-#include "EngineUtilities/Utilities/Camera.h"
+#include "SceneGraph\SceneGraph.h"
+#include "EngineUtilities\Utilities\Camera.h"
+#include "EngineUtilities\Utilities\Skybox.h"
 
 extern IMGUI_IMPL_API
 LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -63,22 +64,22 @@ private:
 	Buffer															m_cbNeverChanges;
 	Buffer															m_cbChangeOnResize;
 	Texture 														m_cyberGunAlbedo;
-	Texture								m_skyboxTex;
+	Texture															m_skyboxTex;
 
-  Camera 														m_camera;
-
-	XMMATRIX                            m_View;
-	XMMATRIX                            m_Projection;
+	Camera															m_camera;
 
 	SceneGraph													m_sceneGraph;
 	std::vector<EU::TSharedPointer<Actor>> m_actors;
 	EU::TSharedPointer<Actor> m_cyberGun;
 
 
-	Model3D*														m_model;
+	Model3D* m_model;
 
 	CBChangeOnResize										cbChangesOnResize;
 	CBNeverChanges											cbNeverChanges;
-	//CBChangesEveryFrame									cb;
 	GUI																m_gui;
+
+	Skybox m_skybox;
+	RasterizerState m_defaultRasterizer;
+	DepthStencilState m_defaultDepthStencil;
 };

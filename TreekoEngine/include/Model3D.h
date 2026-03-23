@@ -24,10 +24,15 @@ public:
    *  @param name Name of the model resource.
    *  @param modelType Type of the model (OBJ or FBX).
 	*/
-	Model3D(const std::string& name, ModelType modelType)
-		: IResource(name), m_modelType(modelType), lSdkManager(nullptr), lScene(nullptr) {
+	Model3D(const std::string& name, 
+		const SkyboxVertex vertices[],
+		const unsigned int indices[]) : IResource(name) {
+		MeshComponent mesh;
+		mesh.m_skyVertex.assign(vertices, vertices + 8);
+		mesh.m_index.assign(indices, indices + 36);
+		mesh.m_numIndex = mesh.m_index.size();
 		SetType(ResourceType::Model3D);
-		load(name);
+		m_meshes.push_back(mesh);
 	}
 
 	/*

@@ -46,7 +46,7 @@ ShaderProgram::init(Device& device,
 
 HRESULT
 ShaderProgram::CreateInputLayout(Device& device,
-	std::vector<D3D11_INPUT_ELEMENT_DESC> Layout) {
+																			std::vector<D3D11_INPUT_ELEMENT_DESC> Layout) {
 	if (!m_vertexShaderData) {
 		ERROR("ShaderProgram", "CreateInputLayout", "Vertex shader data is null.");
 		return E_POINTER;
@@ -86,7 +86,7 @@ ShaderProgram::CreateShader(Device& device, ShaderType type) {
 	ID3DBlob* shaderData = nullptr;
 
 	const char* shaderEntryPoint = (type == ShaderType::PIXEL_SHADER) ? "PS" : "VS";
-	const char* shaderModel = (type == ShaderType::PIXEL_SHADER) ? "ps_4_0" : "vs_4_0";
+	const char* shaderModel = (type == ShaderType::PIXEL_SHADER) ? "ps_5_0" : "vs_5_0";
 
 	// Compile the shader from file
 	hr = CompileShaderFromFile(m_shaderFileName.data(),

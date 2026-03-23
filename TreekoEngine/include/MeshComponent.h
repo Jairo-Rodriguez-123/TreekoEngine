@@ -82,7 +82,7 @@ public:
    * @brief Lista de v�rtices de la malla.
    */
   std::vector<SimpleVertex> m_vertex;
-
+  std::vector<SkyboxVertex> m_skyVertex;
   /**
    * @brief Lista de �ndices que definen las primitivas de la malla.
    */
