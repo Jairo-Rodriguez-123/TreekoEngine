@@ -462,6 +462,7 @@
     <ClCompile Include="Source\Model3D.cpp" />
     <ClCompile Include="Source\ModelLoader.cpp" />
     <ClCompile Include="Source\RasterizerState.cpp" />
+    <ClCompile Include="Source\rendering\ForwardRenderer.cpp" />
     <ClCompile Include="Source\RenderTargetView.cpp" />
     <ClCompile Include="Source\SamplerState.cpp" />
     <ClCompile Include="Source\SceneGraph\SceneGraph.cpp" />
@@ -523,6 +524,12 @@
     <ClInclude Include="include\Model3D.h" />
     <ClInclude Include="include\Prerequisites.h" />
     <ClInclude Include="include\RasterizerState.h" />
+    <ClInclude Include="include\rendering\ForwardRenderer.h" />
+    <ClInclude Include="include\rendering\Material.h" />
+    <ClInclude Include="include\rendering\MaterialInstance.h" />
+    <ClInclude Include="include\rendering\Mesh.h" />
+    <ClInclude Include="include\rendering\RenderScene.h" />
+    <ClInclude Include="include\rendering\RenderTypes.h" />
     <ClInclude Include="include\RenderTargetView.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SamplerState.h" />

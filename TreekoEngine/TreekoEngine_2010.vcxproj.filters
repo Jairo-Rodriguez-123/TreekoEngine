@@ -63,6 +63,12 @@
     <Filter Include="Include\SceneGraph">
       <UniqueIdentifier>{9b59573a-ef20-4887-b1c5-09eae3764d80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Rendering">
+      <UniqueIdentifier>{60e65d3a-c8e0-4de1-9fb0-9f212cc3baf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{9943e704-d3ab-4261-815e-c559507015c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TreekoEngine.cpp">
@@ -160,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="Source\DepthStencilState.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\rendering\ForwardRenderer.cpp">
+      <Filter>Source\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +355,24 @@
     </ClInclude>
     <ClInclude Include="include\EngineUtilities\Utilities\LayoutBuilder.h">
       <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\ForwardRenderer.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\Material.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\MaterialInstance.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\Mesh.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\RenderScene.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\RenderTypes.h">
+      <Filter>Include\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
