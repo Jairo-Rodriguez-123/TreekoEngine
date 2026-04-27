@@ -439,7 +439,11 @@
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\..\Downloads\PBRShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="..\..\Imgui\imgui-docking\imgui-docking\backends\imgui_impl_win32.cpp" />
@@ -511,6 +515,7 @@
     <ClInclude Include="include\EngineUtilities\Structures\TPair.h" />
     <ClInclude Include="include\EngineUtilities\Structures\TSet.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\Camera.h" />
+    <ClInclude Include="include\EngineUtilities\Utilities\EditorViewportPass.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\EngineMath.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\LayoutBuilder.h" />
     <ClInclude Include="include\EngineUtilities\Utilities\Skybox.h" />
@@ -546,6 +551,7 @@
     <ResourceCompile Include="TreekoEngine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\..\Downloads\Skybox.hlsl" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

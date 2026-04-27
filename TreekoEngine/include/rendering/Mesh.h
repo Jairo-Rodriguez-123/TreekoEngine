@@ -1,68 +1,75 @@
 #pragma once
 #include "Prerequisites.h"
 #include "Buffer.h"
+	
 
-/**
- * @struct Submesh
- * @brief A localized chunk of geometry that uses a single Material Instance.
- * * @details
- * **Why it exists:** A 3D artist might export a Car as a single file. However,
- * the car has a metal body, rubber tires, and glass windows. A GPU draw call
- * can only use ONE material at a time. Therefore, the engine splits the Car into
- * three `Submesh`es.
- */
 struct
+	/*
+	  *  @brief Represents a submesh containing vertex and index buffers, index count, start index, and material slot.
+	*/
 	Submesh {
-	Buffer vertexBuffer;          ///< GPU buffer holding vertices for this specific part.
-	Buffer indexBuffer;           ///< GPU buffer holding the connection order of the vertices.
-	unsigned int indexCount = 0;  ///< Number of indices to draw.
-	unsigned int startIndex = 0;  ///< Offset into the index buffer.
-	unsigned int materialSlot = 0;///< Maps this geometry to a specific MaterialInstance array index on the Actor.
-};
+		/*
+		  *  @brief Vertex buffer for the submesh.
+		*/
+		Buffer vertexBuffer;          
+		/*
+		  *  @brief Index buffer for the submesh.
+		*/
+		Buffer indexBuffer;           
+		/*
+		  *  @brief Number of indices in the submesh.
+		*/
+		unsigned int indexCount = 0;  
+		/*
+		  *  @brief Starting index in the index buffer.
+		*/
+		unsigned int startIndex = 0;  
+		/*
+		  *  @brief Material slot index for the submesh.
+		*/
+		unsigned int materialSlot = 0;
+	};
 
-/**
- * @class Mesh
- * @brief A container representing a complete 3D model, composed of one or more Submeshes.
- * @author Ricardo Rabell
- * @date 2026-04-25
- *
- * @details
- * **Context:** This is the top-level asset loaded from an OBJ or FBX file.
- * * **Analogy:** The `Mesh` is an entire action figure toy. The `Submesh`es are the
- * individual plastic pieces molded in the factory (an arm, the torso, a weapon)
- * that are glued together to form the whole.
- */
+
 class
+	/*
+	  *  @brief Represents a mesh composed of multiple submeshes.
+	*/
 	Mesh {
 public:
-	/**
-	 * @brief Retrieves the list of geometry parts.
-	 * @return std::vector<Submesh>& Mutable reference to the submeshes.
-	 */
-	std::vector<Submesh>&
-		getSubmeshes() { return m_submeshes; }
+	
+		/*
+		  *  @brief Returns a reference to the vector of submeshes.
+		  *  @return Reference to the vector of submeshes.
+		*/
+		std::vector<Submesh>&
+			getSubmeshes() { return m_submeshes; }
 
-	/**
-	 * @brief Retrieves the list of geometry parts (read-only).
-	 * @return const std::vector<Submesh>&
-	 */
-	const std::vector<Submesh>&
-		getSubmeshes() const { return m_submeshes; }
 
-	/**
-	 * @brief Releases GPU memory for all associated vertex and index buffers.
-	 */
-	void
-		destroy() {
-		for (Submesh& submesh : m_submeshes) {
-			submesh.vertexBuffer.destroy();
-			submesh.indexBuffer.destroy();
+		/*
+		  *  @brief Returns a const reference to the vector of submeshes.
+		  *  @return Const reference to the vector of submeshes.
+		*/
+		const std::vector<Submesh>&
+			getSubmeshes() const { return m_submeshes; }
+
+		/*
+		  *  @brief Destroys all submeshes and clears the submesh vector.
+		*/
+		void
+			destroy() {
+			for (Submesh& submesh : m_submeshes) {
+				submesh.vertexBuffer.destroy();
+				submesh.indexBuffer.destroy();
+			}
+
+			m_submeshes.clear();
 		}
 
-		m_submeshes.clear();
-	}
-
 private:
-	/** @brief The collection of geometry parts that make up this model. */
-	std::vector<Submesh> m_submeshes;
-};
+
+		/*
+		  *  @brief Vector containing all submeshes of the mesh.
+		*/
+		std::vector<Submesh> m_submeshes;
+	};

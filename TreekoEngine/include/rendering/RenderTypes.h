@@ -1,158 +1,324 @@
 #pragma once
 #include "Prerequisites.h"
 
-// Forward Declarations
+/*
+  *  @brief Forward declaration of Mesh class.
+*/
 class Mesh;
+/*
+  *  @brief Forward declaration of MaterialInstance class.
+*/
 class MaterialInstance;
 
-/** @enum MaterialDomain
- * @brief Classifies how a material interacts with the depth buffer and sorting queues.
- */
+/*
+  *  @brief Specifies the domain of a material (opaque, masked, transparent).
+*/
 enum class
 	MaterialDomain {
-	Opaque = 0,    ///< Fully solid. Writes to depth buffer.
-	Masked,        ///< Solid but with cutout holes (e.g., chainlink fence). Uses Alpha-to-Coverage or clip().
-	Transparent    ///< Partially see-through. Requires back-to-front sorting.
+	/*
+	  *  @brief Opaque material domain.
+	*/
+	Opaque = 0,
+	/*
+	  *  @brief Masked material domain.
+	*/
+	Masked,
+	/*
+	  *  @brief Transparent material domain.
+	*/
+	Transparent
 };
 
-/** @enum BlendMode
- * @brief Defines the math equation used by the Output Merger to blend pixel colors.
- */
+/*
+  *  @brief Specifies the blend mode for materials.
+*/
 enum class
 	BlendMode {
-	Opaque = 0,             ///< Overwrites existing pixel (Src * 1 + Dest * 0)
-	Alpha,                  ///< Standard transparency (Src * Alpha + Dest * (1 - Alpha))
-	Additive,               ///< Used for fire/magic (Src * 1 + Dest * 1)
-	PremultipliedAlpha      ///< Advanced blending where RGB is pre-multiplied by Alpha.
+	/*
+	  *  @brief Opaque blend mode.
+	*/
+	Opaque = 0,             
+	/*
+	  *  @brief Alpha blend mode.
+	*/
+	Alpha,                  
+	/*
+	  *  @brief Additive blend mode.
+	*/
+	Additive,               
+	/*
+	  *  @brief Premultiplied alpha blend mode.
+	*/
+	PremultipliedAlpha      
 };
 
-/** @enum RenderPassType
- * @brief Identifies the current stage of the rendering pipeline.
- */
+/*
+  *  @brief Specifies the type of render pass.
+*/
 enum class
 	RenderPassType {
-	Shadow = 0,    ///< Drawing to the depth-only shadow map.
-	Opaque,        ///< Drawing solid geometry.
-	Skybox,        ///< Drawing the background environment.
-	Transparent,   ///< Drawing glass/water.
-	Editor         ///< Drawing gizmos, grid, and UI elements.
+	/*
+	  *  @brief Shadow pass.
+	*/
+	Shadow = 0,    
+	/*
+	  *  @brief Opaque pass.
+	*/
+	Opaque,        
+	/*
+	  *  @brief Skybox pass.
+	*/
+	Skybox,        
+	/*
+	  *  @brief Transparent pass.
+	*/
+	Transparent,   
+	/*
+	  *  @brief Editor pass.
+	*/
+	Editor         
 };
 
-/** @enum LightType */
+/*
+  *  @brief Specifies the type of light.
+*/
 enum class
 	LightType {
-	Directional = 0, ///< Infinite parallel rays (like the Sun).
-	Point,           ///< Emits light in all directions from a point (like a lightbulb).
-	Spot             ///< Emits a cone of light (like a flashlight).
+	/*
+	  *  @brief Directional light.
+	*/
+	Directional = 0, 
+	/*
+	  *  @brief Point light.
+	*/
+	Point,           
+	/*
+	  *  @brief Spot light.
+	*/
+	Spot             
 };
 
-/**
- * @struct LightData
- * @brief Contains physical properties of a light source.
- */
+/*
+  *  @brief Stores data for a light source.
+*/
 struct
 	LightData {
+	/*
+	  *  @brief Type of the light.
+	*/
 	LightType type = LightType::Directional;
+	/*
+	  *  @brief Color of the light.
+	*/
 	EU::Vector3 color = EU::Vector3(1.0f, 1.0f, 1.0f);
+	/*
+	  *  @brief Intensity of the light.
+	*/
 	float intensity = 1.0f;
 
+	/*
+	  *  @brief Direction of the light (for directional and spot lights).
+	*/
 	EU::Vector3 direction = EU::Vector3(0.0f, -1.0f, 0.0f);
+	/*
+	  *  @brief Range of the light (for point and spot lights).
+	*/
 	float range = 0.0f;
 
+	/*
+	  *  @brief Position of the light (for point and spot lights).
+	*/
 	EU::Vector3 position = EU::Vector3(0.0f, 0.0f, 0.0f);
+	/*
+	  *  @brief Spot angle (for spot lights).
+	*/
 	float spotAngle = 0.0f;
 };
 
-/**
- * @struct MaterialParams
- * @brief CPU-side representation of a material's numeric properties.
- */
+/*
+  *  @brief Stores material parameter values.
+*/
 struct
 	MaterialParams {
+	/*
+	  *  @brief Base color of the material.
+	*/
 	XMFLOAT4 baseColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	/*
+	  *  @brief Metallic value of the material.
+	*/
 	float metallic = 1.0f;
+	/*
+	  *  @brief Roughness value of the material.
+	*/
 	float roughness = 1.0f;
+	/*
+	  *  @brief Ambient occlusion value.
+	*/
 	float ao = 1.0f;
+	/*
+	  *  @brief Normal map scale.
+	*/
 	float normalScale = 1.0f;
+	/*
+	  *  @brief Emissive strength.
+	*/
 	float emissiveStrength = 1.0f;
+	/*
+	  *  @brief Alpha cutoff threshold.
+	*/
 	float alphaCutoff = 0.5f;
 };
 
-//======================================================================================
-// CONSTANT BUFFER STRUCTURES
-// Context: These structs are copied directly into GPU memory. DirectX 11 enforces strict 
-// 16-byte (float4) alignment rules for HLSL Constant Buffers. 
-// Why the 'pad' variables exist: If a struct doesn't naturally end on a 16-byte boundary, 
-// the GPU will silently misalign the data, causing graphical glitches. The 'pad' floats 
-// force the C++ struct to match the HLSL memory layout perfectly.
-//======================================================================================
-
-/** @struct CBPerFrame
- * @brief Data updated exactly once per frame (Cameras, Environment, Lights).
- */
+/*
+  *  @brief Stores per-frame constant buffer data.
+*/
 struct
 	CBPerFrame {
+	/*
+	  *  @brief View matrix.
+	*/
 	XMFLOAT4X4 View{};
+	/*
+	  *  @brief Projection matrix.
+	*/
 	XMFLOAT4X4 Projection{};
+	/*
+	  *  @brief Light view-projection matrix.
+	*/
 	XMFLOAT4X4 LightViewProjection{};
 
+	/*
+	  *  @brief Camera position.
+	*/
 	EU::Vector3 CameraPos{};
-	float pad0 = 0.0f; // Pads CameraPos (12 bytes) to 16 bytes.
+	/*
+	  *  @brief Padding for alignment.
+	*/
+	float pad0 = 0.0f; 
 
+	/*
+	  *  @brief Light direction.
+	*/
 	EU::Vector3 LightDir = EU::Vector3(0.0f, -1.0f, 0.0f);
-	float pad1 = 0.0f; // Pads LightDir (12 bytes) to 16 bytes.
+	/*
+	  *  @brief Padding for alignment.
+	*/
+	float pad1 = 0.0f; 
 
+	/*
+	  *  @brief Light color.
+	*/
 	EU::Vector3 LightColor = EU::Vector3(1.0f, 1.0f, 1.0f);
-	float pad2 = 0.0f; // Pads LightColor (12 bytes) to 16 bytes.
+	/*
+	  *  @brief Padding for alignment.
+	*/
+	float pad2 = 0.0f; 
 };
 
-/** @struct CBPerObject
- * @brief Data updated for every single draw call (Transforms).
- */
+/*
+  *  @brief Stores per-object constant buffer data.
+*/
 struct
 	CBPerObject {
-	XMFLOAT4X4 World{}; // 64 bytes (exactly 4x 16-byte chunks). No padding needed.
+	/*
+	  *  @brief World matrix.
+	*/
+	XMFLOAT4X4 World{}; 
 };
 
-/** @struct CBPerMaterial
- * @brief Data updated whenever the renderer switches to a different material instance.
- */
+/*
+  *  @brief Stores per-material constant buffer data.
+*/
 struct
 	CBPerMaterial {
-	XMFLOAT4 BaseColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // 16 bytes
+	/*
+	  *  @brief Base color of the material.
+	*/
+	XMFLOAT4 BaseColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); 
 
-	// Next 6 floats = 24 bytes. 
+	/*
+	  *  @brief Metallic value.
+	*/
 	float Metallic = 1.0f;
+	/*
+	  *  @brief Roughness value.
+	*/
 	float Roughness = 1.0f;
+	/*
+	  *  @brief Ambient occlusion value.
+	*/
 	float AO = 1.0f;
+	/*
+	  *  @brief Normal map scale.
+	*/
 	float NormalScale = 1.0f;
+	/*
+	  *  @brief Emissive strength.
+	*/
 	float EmissiveStrength = 1.0f;
+	/*
+	  *  @brief Alpha cutoff threshold.
+	*/
 	float AlphaCutoff = 0.0f;
 
-	// Padding to push the total struct size to the next multiple of 16 bytes.
-	// 16 + 24 = 40 bytes. We need 48 bytes (16 * 3). So we add 8 bytes (2 floats).
-	// Note: The code currently has 6 pad floats (24 bytes). This might be over-padding, 
-	// but it is safe as long as it matches the HLSL struct identically.
+	/*
+	  *  @brief Padding for alignment.
+	*/
 	float pad0 = 0.0f;
+	/*
+	  *  @brief Padding for alignment.
+	*/
 	float pad1 = 0.0f;
+	/*
+	  *  @brief Padding for alignment.
+	*/
 	float pad2 = 0.0f;
+	/*
+	  *  @brief Padding for alignment.
+	*/
 	float pad3 = 0.0f;
+	/*
+	  *  @brief Padding for alignment.
+	*/
 	float pad4 = 0.0f;
+	/*
+	  *  @brief Padding for alignment.
+	*/
 	float pad5 = 0.0f;
 };
 
-/**
- * @struct RenderObject
- * @brief A complete instruction set for drawing one piece of geometry.
- * @details This is the payload passed from the ECS to the `RenderScene`.
- */
+/*
+  *  @brief Represents a renderable object in the scene.
+*/
 struct
 	RenderObject {
-	Mesh* mesh = nullptr;                               ///< The geometry to draw.
-	MaterialInstance* materialInstance = nullptr;       ///< Legacy/Single material pointer.
-	std::vector<MaterialInstance*> materialInstances;   ///< Array mapping materials to Submeshes.
-	XMMATRIX world = XMMatrixIdentity();                ///< Its position in the world.
-	bool castShadow = true;                             ///< Does it block light?
-	bool transparent = false;                           ///< Should it go to the Transparent queue?
-	float distanceToCamera = 0.0f;                      ///< Pre-calculated distance used for back-to-front sorting.
+	/*
+	  *  @brief Pointer to the mesh.
+	*/
+	Mesh* mesh = nullptr;                               
+	/*
+	  *  @brief Pointer to the primary material instance.
+	*/
+	MaterialInstance* materialInstance = nullptr;       
+	/*
+	  *  @brief List of material instances for the mesh.
+	*/
+	std::vector<MaterialInstance*> materialInstances;   
+	/*
+	  *  @brief World transformation matrix.
+	*/
+	XMMATRIX world = XMMatrixIdentity();                
+	/*
+	  *  @brief Indicates if the object casts shadows.
+	*/
+	bool castShadow = true;                             
+	/*
+	  *  @brief Indicates if the object is transparent.
+	*/
+	bool transparent = false;                           
+	/*
+	  *  @brief Distance from the camera.
+	*/
+	float distanceToCamera = 0.0f;                      
 };

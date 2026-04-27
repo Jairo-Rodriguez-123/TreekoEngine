@@ -175,6 +175,9 @@
     <None Include="TreekoEngine.fx">
       <Filter>Include\Shaders</Filter>
     </None>
+    <None Include="..\..\Downloads\PBRShader.hlsl">
+      <Filter>Include\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TreekoEngine.rc">
@@ -374,5 +377,13 @@
     <ClInclude Include="include\rendering\RenderTypes.h">
       <Filter>Include\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="include\EngineUtilities\Utilities\EditorViewportPass.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\Downloads\Skybox.hlsl">
+      <Filter>Include\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
